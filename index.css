@@ -1,0 +1,17 @@
+body {
+    height: auto;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(82, 185, 82);
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    
+    
+}
+
+.main {
+    text-align: center;
+    background-color: white;
+    width: 500px;
+    height: 600px;
+}
