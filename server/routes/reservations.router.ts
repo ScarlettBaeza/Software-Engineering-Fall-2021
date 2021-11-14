@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { ObjectId } from "mongodb";
 import { collections } from "../service";
-import Reservation from "../../client/models/reservation";
+import Reservation from "../../client/src/models/reservation";
 
 export const reservationsRouter = express.Router();
 
@@ -9,6 +9,7 @@ reservationsRouter.use(express.json());
 
 //GET
 reservationsRouter.get("/", async (req: Request, res: Response) => {
+    console.log("Fuck you");
     try{
         const reservations = (await collections.Reservations!.find({}).toArray()) as Reservation[];
         res.status(200).send(reservations);
