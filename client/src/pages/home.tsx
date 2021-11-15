@@ -12,16 +12,14 @@ export const Home = () => {
         axios.post("http://localhost:8080/reservation", testReservation)
         .then((res) => console.log(res.data));
 
-        axios.get('http://localhost:8080/reservation')
-        .then(function (response) {
-            // handle success
-            console.log(response);
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        });
+       
     }
+
+    const handleGet = () => {
+        axios.get('http://localhost:8080/reservation')
+        .then((result)=>console.log(result.data))
+    }
+
     return (
         <>
             <img
@@ -29,6 +27,7 @@ export const Home = () => {
             alt = 'Background'/>
             <div className = "text">EAT NOW</div>
             <Button className = "sugma" onClick = {handleTest}>Make a Reservation</Button>
+            <Button className = "testy" onClick = {handleGet}> Get All Reservations</Button>
         </>
     );
 }
