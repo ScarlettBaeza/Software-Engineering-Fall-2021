@@ -9,7 +9,6 @@ reservationsRouter.use(express.json());
 
 //GET
 reservationsRouter.get("/", async (req: Request, res: Response) => {
-    console.log("Fuck you");
     try{
         const reservations = (await collections.Reservations!.find({}).toArray()) as Reservation[];
         res.status(200).send(reservations);
