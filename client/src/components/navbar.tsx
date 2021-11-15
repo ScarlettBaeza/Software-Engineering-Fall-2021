@@ -5,6 +5,8 @@ import { Container, Nav } from 'react-bootstrap';
 import logo from '../assets/images/logo.png';
 
 export const NavigationBar = () => {
+
+    
     return (
         <Navbar fixed = "top" expand="sm" variant="light" bg="light">
             <Container>

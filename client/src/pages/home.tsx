@@ -7,17 +7,25 @@ import Reservation from '../models/reservation';
 
 export const Home = () => {
     const handleTest = () => {
-        const testReservation = new Reservation(123,"dan",12,undefined)
+        const testReservation = new Reservation(new Date(),"dan",12,undefined)
 
         axios.post("http://localhost:8080/reservation", testReservation)
         .then((res) => console.log(res.data));
 
-       
     }
 
     const handleGet = () => {
-        axios.get('http://localhost:8080/reservation')
-        .then((result)=>console.log(result.data))
+        var reservations: Reservation[] | undefined = undefined;
+        axios.get<Reservation[]>('http://localhost:8080/reservation')
+        .then((result)=> reservations = result.data)
+        .then(function() {
+            if(reservations)
+            {
+                reservations.forEach(reservation =>{
+                    console.log(reservation.dateTime);
+                });
+            }
+        });
     }
 
     return (
