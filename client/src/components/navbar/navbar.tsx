@@ -1,8 +1,8 @@
 import React from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import { Container, Nav } from 'react-bootstrap';
-
-import logo from '../assets/images/logo.png';
+import './navbar.css';
+import logo from '../../assets/images/logo.png';
 
 export const NavigationBar = () => {
 

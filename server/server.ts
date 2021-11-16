@@ -1,6 +1,7 @@
 import express from "express";
 import { connectDatabases } from "./service";
 import { reservationsRouter } from "./routes/reservations.router";
+import { tablesRouter } from "./routes/tables.router";
 
 const app = express();
 const port = 8080; // default port to listen
@@ -13,6 +14,7 @@ connectDatabases().then(() => {
     });
 
     app.use("/reservation", reservationsRouter);
+    app.use("/table", tablesRouter);
 
     app.listen(port, () => {
         console.log("Server started on localhost at port ", port);
