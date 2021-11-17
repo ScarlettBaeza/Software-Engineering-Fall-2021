@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import './reservationForm.css';
 import axios from 'axios';
 import Reservation from '../../models/reservation';
 import Table from '../../models/table'
