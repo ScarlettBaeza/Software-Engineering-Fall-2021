@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import background from '../../assets/images/background.jpg'
+import './reservationForm.css';
 import axios from 'axios';
 import Reservation from '../../models/reservation';
 import Table from '../../models/table'
@@ -9,8 +9,6 @@ import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
 
 export const ReservationForm = () => {
-    //const [reserved, setReserved] = useState(false);
-    //const [tables, setTables] = useState<Table[]>();
 
     return (
         <div className="container">
