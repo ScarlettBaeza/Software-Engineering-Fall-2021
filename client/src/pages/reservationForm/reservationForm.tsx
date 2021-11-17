@@ -23,12 +23,21 @@ export const ReservationForm = () => {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Phone Number</Form.Label>
-                        <Form.Control type="text" placeholder="phone n" />
+                        <Form.Control type="text" placeholder="phone number" />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-                        <Form.Label>Example text area</Form.Label>
-                        <Form.Control as="textarea" rows={3} />
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" placeholder="email address" />
                     </Form.Group>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Date and Time Picker</Form.Label>
+                        <Datetime/>
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Number of Guests</Form.Label>
+                        <Form.Control type="number" placeholder="total guests" min = "0" />
+                    </Form.Group>
+                    <Button variant="primary" type="submit"> Submit </Button>
                 </Form>
                 </div>
             </div>
