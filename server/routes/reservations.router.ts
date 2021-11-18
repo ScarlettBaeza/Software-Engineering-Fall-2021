@@ -21,9 +21,25 @@ reservationsRouter.get("/", async (req: Request, res: Response) => {
 reservationsRouter.get("/:id", async (req: Request, res: Response) => {
     try {
         const id = req?.params?.id;
-        const query = { id: new ObjectId(id) };
+        const query = { _id: new ObjectId(id) };
         const reservation = (await collections.Reservations!.findOne(query)) as Reservation;
         if (reservation) res.status(200).send(reservation);
+    } catch (error: any) {
+        res.status(404).send(`Unable to find reservation: ${req.params.id}`);
+    }
+});
+
+reservationsRouter.get("/:startTime/:endTime", async (req: Request, res: Response) => {
+    try {
+        const startTime = req?.params?.startTime;
+        const endTime = req?.params?.endTime;
+        const startQuery = { dateTime: startTime };
+        const endQuery = { dateTime: endTime };
+        console.log(startTime, endTime);
+        const reservation = (await collections.Reservations!.find({ dateTime : { $gt: startTime, $lt: endTime}}).toArray()) as Reservation[];
+        if (reservation) res.status(200).send(reservation);
+        else throw(console.error());
+        
     } catch (error: any) {
         res.status(404).send(`Unable to find reservation: ${req.params.id}`);
     }
@@ -51,7 +67,7 @@ reservationsRouter.put("/:id", async (req: Request, res: Response) => {
     try {
         const id = req?.params?.id;
         const reservation: Reservation = req.body as Reservation;
-        const query = { id: new ObjectId(id) };
+        const query = { _id: new ObjectId(id) };
       
         const result = await collections.Reservations!.updateOne(query, { $set: reservation });
 

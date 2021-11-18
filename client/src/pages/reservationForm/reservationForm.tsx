@@ -15,25 +15,60 @@ export const ReservationForm = () => {
     const [phoneNumber,setPhoneNumber] = useState<string>();
     const [dateTime,setDateTime] = useState<Date>();
     const [guestsNumber,setGuestsNumber] = useState<number>();
-    const [reservations,setReservations] = useState<Reservation[]>();
-    const [tables, setTables] = useState<Table[]>();
-    const [freeTables, setFreeTables] = useState<boolean[]>([]);
+    const [reservations,setReservations] = useState<Reservation[]>([]);
+    const [tables, setTables] = useState<Table[]>([]);
+    const [freeTables, setFreeTables] = useState<boolean[]>([true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]);
 
     useEffect(() => {
-        axios.get<Reservation[]>('http://localhost:8080/reservation')
-        .then((result)=> setReservations(result.data));
-
-        axios.get<Table[]>('http://localhost:8080/table')
-        .then((result)=> setTables(result.data));
-
     },[]);
 
     useEffect(() => {
-        console.log(reservations);
+        if(dateTime)
+        {
+            setReservations([]);
+            setTables([]);
+            console.log(dateTime);
+            console.log(dateTime.toISOString());
+            let startDate = dateTime;
+            let endDate = dateTime;
+            startDate.setMinutes(startDate.getMinutes() - 30);
+            endDate.setMinutes(endDate.getMinutes() + 30);
+            console.log(startDate.toISOString(), endDate.toISOString());
+            console.log('http://localhost:8080/reservation/' + startDate.toISOString()+ '/' + endDate.toISOString())
+            axios.get<Reservation[]>('http://localhost:8080/reservation/' + startDate.toISOString() + '/' + endDate.toISOString())
+            .then((result)=> setReservations(result.data));
+            reservations?.forEach((reservation) => {
+                if(reservation.tables)
+                {
+                    reservation.tables.forEach((table) =>{
+                        setTables((oldTables) => [...oldTables, table]);
+                    });
+                }
+            });
+        }
     },[dateTime]);
 
+    useEffect(() => {
+        let booleans = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
+        tables.forEach((table) => {
+            booleans[table.tableNumber-1] = false;
+        });
+        setFreeTables(booleans);
+    },[tables]);
+
+    const handleSubmit = () => {
+
+        const testReservation = new Reservation(dateTime!, name!, phoneNumber!, email!, guestsNumber!);
+        console.log(testReservation);
+        
+        axios.post("http://localhost:8080/reservation", testReservation)
+        .then((res) => console.log(res.data));
+        
+    };
+
     const handleTest = () => {
-        setFreeTables([true, true, false, false, true, true, false, false, true]);
+        console.log(tables);
+        console.log(dateTime?.setHours(dateTime.getHours() -2));
     };
 
     return (
@@ -61,12 +96,10 @@ export const ReservationForm = () => {
                         <Form.Label>Number of Guests</Form.Label>
                         <Form.Control onChange={(e)=> setGuestsNumber(parseInt(e.target.value))} type="number" placeholder="total guests" min = "0" />
                     </Form.Group>
-                    <Button variant="primary" onClick={handleTest}> Submit </Button>
+                    <Button variant="primary" onClick={handleSubmit}> Submit </Button>
+                    <Button variant="primary" onClick={handleTest}> Test </Button>
                 </Form>
                 </div>
-            </div>
-            <div className="row">
-                {dateTime?.toDateString()}
             </div>
             <TableGrid freeTable={freeTables}/>
         </div>

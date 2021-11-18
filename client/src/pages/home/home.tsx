@@ -28,7 +28,7 @@ export const Home = () => {
             if(reservations)
             {
                 reservations.forEach(reservation =>{
-                    console.log(reservation);
+                    console.log(reservation.dateTime);
                 });
             }
         });

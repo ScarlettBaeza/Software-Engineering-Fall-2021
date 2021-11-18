@@ -8,8 +8,8 @@ export default class Reservation {
     public phone: string;
     public email: string;
     public partySize: number;
-    public tables: Table[];
-    constructor(dateTime: Date, reserver: string, phone: string, email: string, partySize: number, tables: Table[], _id?: ObjectId){
+    public tables?: Table[];
+    constructor(dateTime: Date, reserver: string, phone: string, email: string, partySize: number, tables?: Table[], _id?: ObjectId){
         if(_id)
         {
             this._id = _id
@@ -19,6 +19,9 @@ export default class Reservation {
         this.phone = phone;
         this.email = email;
         this.partySize = partySize;
-        this.tables = tables;
+        if(tables)
+        {
+            this.tables = tables;
+        }
     }
 }
