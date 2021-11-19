@@ -21,32 +21,33 @@ export const ReservationForm = () => {
 
     useEffect(() => {
     },[]);
-
+    
     useEffect(() => {
         if(dateTime)
         {
-            setReservations([]);
-            setTables([]);
-            console.log(dateTime);
-            console.log(dateTime.toISOString());
-            let startDate = dateTime;
-            let endDate = dateTime;
-            startDate.setMinutes(startDate.getMinutes() - 30);
-            endDate.setMinutes(endDate.getMinutes() + 30);
-            console.log(startDate.toISOString(), endDate.toISOString());
+            //let startDate = dateTime;
+            //let endDate = dateTime;
+            let startDate = new Date(dateTime.getTime() - 5400000);
+            let endDate = new Date(dateTime.getTime() + 5400000);
             console.log('http://localhost:8080/reservation/' + startDate.toISOString()+ '/' + endDate.toISOString())
             axios.get<Reservation[]>('http://localhost:8080/reservation/' + startDate.toISOString() + '/' + endDate.toISOString())
             .then((result)=> setReservations(result.data));
-            reservations?.forEach((reservation) => {
-                if(reservation.tables)
-                {
-                    reservation.tables.forEach((table) =>{
-                        setTables((oldTables) => [...oldTables, table]);
-                    });
-                }
-            });
         }
     },[dateTime]);
+
+    useEffect(() => {
+        setTables([]);
+        console.log(reservations);
+        reservations?.forEach((reservation) => {
+            if(reservation.tables)
+            {
+                reservation.tables.forEach((table) =>{
+                    setTables((oldTables) => [...oldTables, table]);
+                });
+            }
+        });
+        
+    },[reservations]);
 
     useEffect(() => {
         let booleans = [true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
@@ -65,6 +66,28 @@ export const ReservationForm = () => {
         .then((res) => console.log(res.data));
         
     };
+
+    /*
+    const handleDatetimeChange = (date: Date) => {
+        if(dateTime)
+        {
+            let startDate = new Date(date.getTime() - 5400000);
+            let endDate = new Date(date.getTime() + 5400000);
+            console.log('http://localhost:8080/reservation/' + startDate.toISOString()+ '/' + endDate.toISOString())
+            axios.get<Reservation[]>('http://localhost:8080/reservation/' + startDate.toISOString() + '/' + endDate.toISOString())
+            .then((result)=> setReservations(result.data));
+            console.log(reservations);
+            reservations?.forEach((reservation) => {
+                if(reservation.tables)
+                {
+                    reservation.tables.forEach((table) =>{
+                        setTables((oldTables) => [...oldTables, table]);
+                    });
+                }
+            });
+        }
+    }
+    */
 
     const handleTest = () => {
         console.log(tables);
@@ -90,7 +113,7 @@ export const ReservationForm = () => {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Date and Time Picker</Form.Label>
-                        <Datetime onChange={(e: any)=> setDateTime(e.toDate())}/>
+                        <Datetime onChange={(e: any)=> {setDateTime(e.toDate());}}/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Number of Guests</Form.Label>
