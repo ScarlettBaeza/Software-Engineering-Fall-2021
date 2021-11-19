@@ -67,28 +67,6 @@ export const ReservationForm = () => {
         
     };
 
-    /*
-    const handleDatetimeChange = (date: Date) => {
-        if(dateTime)
-        {
-            let startDate = new Date(date.getTime() - 5400000);
-            let endDate = new Date(date.getTime() + 5400000);
-            console.log('http://localhost:8080/reservation/' + startDate.toISOString()+ '/' + endDate.toISOString())
-            axios.get<Reservation[]>('http://localhost:8080/reservation/' + startDate.toISOString() + '/' + endDate.toISOString())
-            .then((result)=> setReservations(result.data));
-            console.log(reservations);
-            reservations?.forEach((reservation) => {
-                if(reservation.tables)
-                {
-                    reservation.tables.forEach((table) =>{
-                        setTables((oldTables) => [...oldTables, table]);
-                    });
-                }
-            });
-        }
-    }
-    */
-
     const handleTest = () => {
         console.log(tables);
         console.log(dateTime?.setHours(dateTime.getHours() -2));

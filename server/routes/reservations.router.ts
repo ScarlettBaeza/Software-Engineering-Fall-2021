@@ -35,9 +35,7 @@ reservationsRouter.get("/:startTime/:endTime", async (req: Request, res: Respons
         const endTime = req?.params?.endTime;
         const startQuery = { dateTime: startTime };
         const endQuery = { dateTime: endTime };
-        console.log(startTime, endTime);
         const reservation = (await collections.Reservations!.find({ dateTime : { $gt: startTime, $lt: endTime}}).toArray()) as Reservation[];
-        console.log(reservation);
         if (reservation) res.status(200).send(reservation);
         else throw(console.error());
         
