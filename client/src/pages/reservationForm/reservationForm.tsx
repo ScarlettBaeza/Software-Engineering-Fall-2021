@@ -17,27 +17,29 @@ export const ReservationForm = () => {
     const [guestsNumber,setGuestsNumber] = useState<number>();
     const [reservations,setReservations] = useState<Reservation[]>([]);
     const [tables, setTables] = useState<Table[]>([]);
+    const [availableTables, setAvailableTables] = useState<Table[]>([]);
+    const [optionsList, setOptionsList] = useState<Table[]>([]);
+    const [dateTimeChanged, setDateTimeChanged] = useState<boolean>(false);
+    const [guestChanged, setGuestChanged] = useState<boolean>(false);
+    const [updateList, setUpdateList] = useState<boolean>(false);
     const [freeTables, setFreeTables] = useState<boolean[]>([true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]);
-
-    useEffect(() => {
-    },[]);
     
     useEffect(() => {
         if(dateTime)
         {
             //let startDate = dateTime;
             //let endDate = dateTime;
+            setDateTimeChanged(true);
             let startDate = new Date(dateTime.getTime() - 5400000);
             let endDate = new Date(dateTime.getTime() + 5400000);
-            console.log('http://localhost:8080/reservation/' + startDate.toISOString()+ '/' + endDate.toISOString())
             axios.get<Reservation[]>('http://localhost:8080/reservation/' + startDate.toISOString() + '/' + endDate.toISOString())
             .then((result)=> setReservations(result.data));
+            handleUpdateList();
         }
     },[dateTime]);
 
     useEffect(() => {
         setTables([]);
-        console.log(reservations);
         reservations?.forEach((reservation) => {
             if(reservation.tables)
             {
@@ -46,7 +48,6 @@ export const ReservationForm = () => {
                 });
             }
         });
-        
     },[reservations]);
 
     useEffect(() => {
@@ -57,14 +58,52 @@ export const ReservationForm = () => {
         setFreeTables(booleans);
     },[tables]);
 
-    const handleSubmit = () => {
+    useEffect(() => {
+        if(dateTimeChanged && guestChanged)
+        {
+            setUpdateList(true);
+        }
+    },[dateTimeChanged,guestChanged]);
 
+    useEffect(() => {
+        handleUpdateList();
+    },[updateList]);
+
+    useEffect(() => {
+        if(guestsNumber) setOptionsList(availableTables.filter(x => x.tableCapacity >= guestsNumber));
+    },[availableTables]);
+
+    useEffect(() => {
+        console.log(optionsList);
+        //add logic to limit tables that have extra seats, and allow for combining tables.
+    },[optionsList]);
+
+    const handleUpdateList = () => {
+        setAvailableTables([])
+        if(updateList)
+        {
+            for(var index in freeTables)
+            {
+                if(freeTables[index])
+                {
+                    var tableQuery = parseInt(index) + 1;
+                    var table: Table;                    
+                    axios.get<Table>('http://localhost:8080/table/find?number=' + tableQuery)
+                    .then((result)=> table = result.data)
+                    .then(function() {
+                        setAvailableTables((oldTables) => [...oldTables, table]);
+                    });
+                }
+            }
+        }
+    }
+
+
+    const handleSubmit = () => {
         const testReservation = new Reservation(dateTime!, name!, phoneNumber!, email!, guestsNumber!);
         console.log(testReservation);
-        
         axios.post("http://localhost:8080/reservation", testReservation)
         .then((res) => console.log(res.data));
-        
     };
 
     const handleTest = () => {
@@ -95,7 +134,14 @@ export const ReservationForm = () => {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Number of Guests</Form.Label>
-                        <Form.Control onChange={(e)=> setGuestsNumber(parseInt(e.target.value))} type="number" placeholder="total guests" min = "0" />
+                        <Form.Control onChange={(e)=> {setGuestsNumber(parseInt(e.target.value)); setGuestChanged(true); handleUpdateList();}} type="number" placeholder="total guests" min = "0" />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                        <Form.Label>Select Table</Form.Label>
+                        <Form.Select aria-label="Default select example">
+                            <option>Open this select menu</option>
+                            {optionsList.sort((a,b)=> a.tableNumber < b.tableNumber? -1: 1).map((x) => (<option>Table Number: {x.tableNumber}</option>))}
+                        </Form.Select>
                     </Form.Group>
                     <Button variant="primary" onClick={handleSubmit}> Submit </Button>
                     <Button variant="primary" onClick={handleTest}> Test </Button>

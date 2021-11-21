@@ -33,8 +33,6 @@ reservationsRouter.get("/:startTime/:endTime", async (req: Request, res: Respons
     try {
         const startTime = req?.params?.startTime;
         const endTime = req?.params?.endTime;
-        const startQuery = { dateTime: startTime };
-        const endQuery = { dateTime: endTime };
         const reservation = (await collections.Reservations!.find({ dateTime : { $gt: startTime, $lt: endTime}}).toArray()) as Reservation[];
         if (reservation) res.status(200).send(reservation);
         else throw(console.error());
@@ -84,16 +82,16 @@ reservationsRouter.put("/:id", async (req: Request, res: Response) => {
 //DELETE
 reservationsRouter.delete("/:id", async (req: Request, res: Response) => {
     try {
-        const id = req?.params?.id;
-        const query = { id: new ObjectId(id) };
+        const _id = req?.params?.id;
+        const query = { _id: new ObjectId(_id) };
         const result = await collections.Reservations!.deleteOne(query);
 
         if (result && result.deletedCount) {
-            res.status(202).send(`Removed reservation. id: ${id}`);
+            res.status(202).send(`Removed reservation. id: ${_id}`);
         } else if (!result) {
-            res.status(400).send(`Failed to remove reservation. id: ${id}`);
+            res.status(400).send(`Failed to remove reservation. id: ${_id}`);
         } else if (!result.deletedCount) {
-            res.status(404).send(`Reservation with id ${id} does not exist`);
+            res.status(404).send(`Reservation with id ${_id} does not exist`);
         }
     } catch (error: any) {
         res.status(400).send(error.message);

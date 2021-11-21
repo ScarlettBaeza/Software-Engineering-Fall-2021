@@ -18,16 +18,37 @@ tablesRouter.get("/", async (req: Request, res: Response) => {
     }
 });
 
+tablesRouter.get("/find", async (req: Request, res: Response) => {
+    try {
+        const tableNumber = req?.query?.number!.toString();
+        console.log(tableNumber);
+        const query = { tableNumber: parseInt(req?.query?.number!.toString()) };
+        const table = (await collections.Tables!.findOne(query)) as Table;
+        console.log(table);
+        if (table){
+            res.status(200).send(table as Table)
+        }
+        else
+        {
+            throw new TypeError("Can't Find that table");
+        }
+    } catch (error: any) {
+        res.status(404).send(`Unable to find table: ${req.query.number}`);
+    }
+});
+
 tablesRouter.get("/:id", async (req: Request, res: Response) => {
     try {
-        const id = req?.params?.id;
-        const query = { id: new ObjectId(id) };
+        const _id = req?.params?.id;
+        const query = { _id: new ObjectId(_id) };
         const table = (await collections.Tables!.findOne(query)) as Table;
         if (table) res.status(200).send(table);
     } catch (error: any) {
         res.status(404).send(`Unable to find table: ${req.params.id}`);
     }
 });
+
+
 
 //POST
 tablesRouter.post("/", async (req: Request, res: Response) => {
@@ -49,14 +70,14 @@ tablesRouter.post("/", async (req: Request, res: Response) => {
 //PUT
 tablesRouter.put("/:id", async (req: Request, res: Response) => {
     try {
-        const id = req?.params?.id;
+        const _id = req?.params?.id;
         const table: Table = req.body as Table;
-        const query = { id: new ObjectId(id) };
+        const query = { _id: new ObjectId(_id) };
       
         const result = await collections.Tables!.updateOne(query, { $set: table });
 
         if(result){
-            res.status(200).send(`Updated table. id: ${id}`)
+            res.status(200).send(`Updated table. id: ${_id}`)
         }
         else{
             res.status(304).send(`Failed to update table. id: ${req?.params?.id}`);
@@ -69,16 +90,16 @@ tablesRouter.put("/:id", async (req: Request, res: Response) => {
 //DELETE
 tablesRouter.delete("/:id", async (req: Request, res: Response) => {
     try {
-        const id = req?.params?.id;
-        const query = { id: new ObjectId(id) };
+        const _id = req?.params?.id;
+        const query = { _id: new ObjectId(_id) };
         const result = await collections.Tables!.deleteOne(query);
 
         if (result && result.deletedCount) {
-            res.status(202).send(`Removed table. id: ${id}`);
+            res.status(202).send(`Removed table. id: ${_id}`);
         } else if (!result) {
-            res.status(400).send(`Failed to remove table. id: ${id}`);
+            res.status(400).send(`Failed to remove table. id: ${_id}`);
         } else if (!result.deletedCount) {
-            res.status(404).send(`Table with id ${id} does not exist`);
+            res.status(404).send(`Table with id ${_id} does not exist`);
         }
     } catch (error: any) {
         res.status(400).send(error.message);
