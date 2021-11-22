@@ -22,19 +22,18 @@ export const ReservationForm = () => {
     const [dateTimeChanged, setDateTimeChanged] = useState<boolean>(false);
     const [guestChanged, setGuestChanged] = useState<boolean>(false);
     const [updateList, setUpdateList] = useState<boolean>(false);
+    const [combineTables, setCombineTables] = useState<boolean>(false);
+    const [combinedTables, setCombinedTables] = useState<Table[][]>([[]]);
     const [freeTables, setFreeTables] = useState<boolean[]>([true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]);
     
     useEffect(() => {
         if(dateTime)
         {
-            //let startDate = dateTime;
-            //let endDate = dateTime;
             setDateTimeChanged(true);
             let startDate = new Date(dateTime.getTime() - 5400000);
             let endDate = new Date(dateTime.getTime() + 5400000);
             axios.get<Reservation[]>('http://localhost:8080/reservation/' + startDate.toISOString() + '/' + endDate.toISOString())
             .then((result)=> setReservations(result.data));
-            handleUpdateList();
         }
     },[dateTime]);
 
@@ -66,19 +65,53 @@ export const ReservationForm = () => {
     },[dateTimeChanged,guestChanged]);
 
     useEffect(() => {
-        handleUpdateList();
-    },[updateList]);
+        if(guestsNumber)
+        {
+            let uncombinedTables = availableTables;
+            var minimumCapacity = 100;
+            uncombinedTables.forEach((table) => {
+                if(minimumCapacity > table.tableCapacity && table.tableCapacity >= guestsNumber)
+                {
+                    minimumCapacity = table.tableCapacity;
+                }
+                setCombineTables(false);
+            });
+            setOptionsList(uncombinedTables.filter(x => x.tableCapacity === minimumCapacity));
+            if(minimumCapacity === 100)
+            {
+                var numberOfGuests = guestsNumber;
+                var totalCapacity = 0;
+                var tablesRemaining = availableTables.sort((a,b) => (a.tableCapacity < b.tableCapacity ? 1 : -1));
+                var capacities = returnUniques(availableTables)
+                var combinedTables: Table[] = [];
 
-    useEffect(() => {
-        if(guestsNumber) setOptionsList(availableTables.filter(x => x.tableCapacity >= guestsNumber));
+                if(tablesRemaining)
+                {
+                    for(var table of tablesRemaining)
+                    {
+                        if(totalCapacity > numberOfGuests) break;
+                        combinedTables.push(table);
+                        totalCapacity = totalCapacity + table.tableCapacity;
+                    }
+                }
+                
+                console.log(combinedTables);
+                //write reducer code here
+
+                setCombineTables(true);
+            }
+        } 
     },[availableTables]);
 
     useEffect(() => {
-        console.log(optionsList);
         //add logic to limit tables that have extra seats, and allow for combining tables.
-    },[optionsList]);
 
-    const handleUpdateList = () => {
+        //no, set highlighting boolean array here.
+    },[optionsList]);
+    
+    
+
+    useEffect(() => {
         setAvailableTables([])
         if(updateList)
         {
@@ -87,7 +120,7 @@ export const ReservationForm = () => {
                 if(freeTables[index])
                 {
                     var tableQuery = parseInt(index) + 1;
-                    var table: Table;                    
+                    var table: Table;
                     axios.get<Table>('http://localhost:8080/table/find?number=' + tableQuery)
                     .then((result)=> table = result.data)
                     .then(function() {
@@ -96,8 +129,18 @@ export const ReservationForm = () => {
                 }
             }
         }
-    }
+    },[freeTables, guestsNumber]);
 
+    const returnUniques = (arr: Table[]) => {
+        const map = [];
+        for (let value of arr) {
+          if (map.indexOf(value.tableCapacity) === -1) {
+            map.push(value.tableCapacity);
+          }
+        }
+      
+        return map;
+    };
 
     const handleSubmit = () => {
         const testReservation = new Reservation(dateTime!, name!, phoneNumber!, email!, guestsNumber!);
@@ -134,13 +177,13 @@ export const ReservationForm = () => {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Number of Guests</Form.Label>
-                        <Form.Control onChange={(e)=> {setGuestsNumber(parseInt(e.target.value)); setGuestChanged(true); handleUpdateList();}} type="number" placeholder="total guests" min = "0" />
+                        <Form.Control onChange={(e)=> {setGuestsNumber(parseInt(e.target.value)); setGuestChanged(true);}} type="number" placeholder="total guests" min = "0" />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Select Table</Form.Label>
                         <Form.Select aria-label="Default select example">
                             <option>Open this select menu</option>
-                            {optionsList.sort((a,b)=> a.tableNumber < b.tableNumber? -1: 1).map((x) => (<option>Table Number: {x.tableNumber}</option>))}
+                            {combineTables ? <option>fuck you</option> : optionsList.sort((a,b)=> a.tableNumber < b.tableNumber? -1: 1).map((x) => (<option>Table Number: {x.tableNumber}</option>))}
                         </Form.Select>
                     </Form.Group>
                     <Button variant="primary" onClick={handleSubmit}> Submit </Button>

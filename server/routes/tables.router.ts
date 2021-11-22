@@ -21,10 +21,8 @@ tablesRouter.get("/", async (req: Request, res: Response) => {
 tablesRouter.get("/find", async (req: Request, res: Response) => {
     try {
         const tableNumber = req?.query?.number!.toString();
-        console.log(tableNumber);
         const query = { tableNumber: parseInt(req?.query?.number!.toString()) };
         const table = (await collections.Tables!.findOne(query)) as Table;
-        console.log(table);
         if (table){
             res.status(200).send(table as Table)
         }
