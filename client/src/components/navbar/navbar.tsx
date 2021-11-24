@@ -19,9 +19,7 @@ export const NavigationBar = () => {
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Nav className="me-auto">
-                    <Nav.Link href="menu">Menu</Nav.Link>
-                    <Nav.Link href="link">Link</Nav.Link>
-                    <Nav.Link href="add">Add</Nav.Link>
+                <Nav.Link href="home">Home</Nav.Link>
                     <Nav.Link href="resForm">Make A Reservation</Nav.Link>
                 </Nav>
             </Container>

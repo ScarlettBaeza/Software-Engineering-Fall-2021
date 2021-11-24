@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-import background from '../../assets/images/background.jpg'
 import axios from 'axios';
 import './home.css';
 import Reservation from '../../models/reservation';
@@ -56,14 +55,9 @@ export const Home = () => {
 
     return (
         <>
-            <img
-            src = {background}
-            alt = 'Background'/>
-            <div className = "text">EAT NOW</div>
-            <Button className = "sugma" onClick = {handleTest}>Make a Reservation</Button>
-            <Button className = "testy" onClick = {handleGet}> Get All Reservations</Button>
-            <Button className = "tableTesty" onClick = {handleTablePost}>Make a Table</Button>
-            <Button className = "tableTesty" onClick = {handleTableGet}>Get all Tables</Button>
+            <h1 className = "text">WELCOME!</h1>
+            <Button className = "resMake" onClick = {handleTest}>Make a Reservation</Button>
+            <Button className = "resGet" onClick = {handleGet}> Get All Reservations</Button>
         </>
     );
 }
