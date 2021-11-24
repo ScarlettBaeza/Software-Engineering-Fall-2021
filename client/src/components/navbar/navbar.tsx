@@ -7,12 +7,13 @@ export const NavigationBar = () => {
 
     
     return (
-        <Navbar fixed = "top" expand="sm" variant="light" bg="light">
+        <Navbar className="nav" fixed = "top" expand="sm" variant="light" bg="light">
             <Container>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Nav className="me-auto">
                     <Nav.Link href="home" className="links">Home</Nav.Link>
                     <Nav.Link href="resForm" className="links">Make A Reservation</Nav.Link>
+                    <Nav.Link href="#" className="links">About</Nav.Link>
                 </Nav>
             </Container>
         </Navbar>
