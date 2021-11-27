@@ -8,6 +8,7 @@ import Table from '../../models/table'
 import { TableGrid } from '../../components/tableGrid/tableGrid';
 import Datetime from 'react-datetime';
 import "react-datetime/css/react-datetime.css";
+import { table } from 'console';
 
 export const ReservationForm = () => {
     const [name,setName] = useState<string>();
@@ -15,6 +16,7 @@ export const ReservationForm = () => {
     const [phoneNumber,setPhoneNumber] = useState<string>();
     const [dateTime,setDateTime] = useState<Date>();
     const [guestsNumber,setGuestsNumber] = useState<number>();
+    const [selectedTable,setSelectedTable] = useState<Table>();
     const [reservations,setReservations] = useState<Reservation[]>([]);
     const [tables, setTables] = useState<Table[]>([]);
     const [availableTables, setAvailableTables] = useState<Table[]>([]);
@@ -23,7 +25,7 @@ export const ReservationForm = () => {
     const [guestChanged, setGuestChanged] = useState<boolean>(false);
     const [updateList, setUpdateList] = useState<boolean>(false);
     const [combineTables, setCombineTables] = useState<boolean>(false);
-    const [combinedTables, setCombinedTables] = useState<Table[][]>([[]]);
+    const [combinedTables, setCombinedTables] = useState<Table[]>([]);
     const [freeTables, setFreeTables] = useState<boolean[]>([true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]);
     
     useEffect(() => {
@@ -39,14 +41,17 @@ export const ReservationForm = () => {
 
     useEffect(() => {
         setTables([]);
+        var tables: Table[] = [];
         reservations?.forEach((reservation) => {
             if(reservation.tables)
             {
                 reservation.tables.forEach((table) =>{
-                    setTables((oldTables) => [...oldTables, table]);
+                    tables.push(table);
                 });
             }
         });
+
+        setTables(tables);
     },[reservations]);
 
     useEffect(() => {
@@ -58,11 +63,15 @@ export const ReservationForm = () => {
     },[tables]);
 
     useEffect(() => {
-        if(dateTimeChanged && guestChanged)
-        {
-            setUpdateList(true);
-        }
-    },[dateTimeChanged,guestChanged]);
+        setAvailableTables([])
+        var tablesAvailable:Table[] = [];
+
+        axios.get<Table[]>('http://localhost:8080/table')
+        .then((result) => {tablesAvailable = result.data})
+        .then(()=> {tablesAvailable = tablesAvailable.filter((x) => {return freeTables[x.tableNumber-1]})})
+        .then(() => setAvailableTables(tablesAvailable));
+
+    },[freeTables, guestsNumber]);
 
     useEffect(() => {
         if(guestsNumber)
@@ -79,29 +88,53 @@ export const ReservationForm = () => {
             setOptionsList(uncombinedTables.filter(x => x.tableCapacity === minimumCapacity));
             if(minimumCapacity === 100)
             {
+                setCombineTables(true);
                 var numberOfGuests = guestsNumber;
                 var totalCapacity = 0;
                 var tablesRemaining = availableTables.sort((a,b) => (a.tableCapacity < b.tableCapacity ? 1 : -1));
-                var capacities = returnUniques(availableTables)
+                var capacities = returnUniqueCapacity(availableTables)
                 var combinedTables: Table[] = [];
-
                 if(tablesRemaining)
                 {
                     for(var table of tablesRemaining)
                     {
-                        if(totalCapacity > numberOfGuests) break;
+                        if(totalCapacity >= numberOfGuests) break;
                         combinedTables.push(table);
                         totalCapacity = totalCapacity + table.tableCapacity;
                     }
                 }
-                
                 console.log(combinedTables);
-                //write reducer code here
+                availableTables.sort((a,b) => (a.tableCapacity < b.tableCapacity ? -1 : 1));
+                if(combinedTables[combinedTables.length-1])
+                {
+                    totalCapacity = totalCapacity - combinedTables[combinedTables.length-1].tableCapacity;
+                    combinedTables.pop();
+                    for(var table of tablesRemaining)
+                    {
+                        combinedTables.push(table);
+                        totalCapacity = totalCapacity + table.tableCapacity;
+                        if (totalCapacity >= numberOfGuests) break;
+                        else
+                        {
+                            combinedTables.pop();
+                            totalCapacity = totalCapacity - table.tableCapacity;
+                        }
+                    }
+                }
+                setCombinedTables(combinedTables);
 
-                setCombineTables(true);
             }
         } 
     },[availableTables]);
+
+    useEffect(() => {
+        if(dateTimeChanged && guestChanged)
+        {
+            setUpdateList(true);
+        }
+    },[dateTimeChanged,guestChanged]);
+
+    
 
     useEffect(() => {
         //add logic to limit tables that have extra seats, and allow for combining tables.
@@ -109,29 +142,7 @@ export const ReservationForm = () => {
         //no, set highlighting boolean array here.
     },[optionsList]);
     
-    
-
-    useEffect(() => {
-        setAvailableTables([])
-        if(updateList)
-        {
-            for(var index in freeTables)
-            {
-                if(freeTables[index])
-                {
-                    var tableQuery = parseInt(index) + 1;
-                    var table: Table;
-                    axios.get<Table>('http://localhost:8080/table/find?number=' + tableQuery)
-                    .then((result)=> table = result.data)
-                    .then(function() {
-                        setAvailableTables((oldTables) => [...oldTables, table]);
-                    });
-                }
-            }
-        }
-    },[freeTables, guestsNumber]);
-
-    const returnUniques = (arr: Table[]) => {
+    const returnUniqueCapacity = (arr: Table[]) => {
         const map = [];
         for (let value of arr) {
           if (map.indexOf(value.tableCapacity) === -1) {
@@ -143,15 +154,39 @@ export const ReservationForm = () => {
     };
 
     const handleSubmit = () => {
-        const testReservation = new Reservation(dateTime!, name!, phoneNumber!, email!, guestsNumber!);
+        var tables: Table[] = []
+        if(combineTables)
+        {
+            tables = combinedTables
+        }
+        else
+        {
+            if(selectedTable) tables.push(selectedTable);
+        }
+        const testReservation = new Reservation(dateTime!, name!, phoneNumber!, email!, guestsNumber!, tables);
         console.log(testReservation);
         axios.post("http://localhost:8080/reservation", testReservation)
         .then((res) => console.log(res.data));
     };
 
+    const handleSelectTable = (tableNum:number) => {
+        console.log(optionsList);
+        setSelectedTable(optionsList.find((x) => x.tableNumber == tableNum));
+    };
+
     const handleTest = () => {
-        console.log(tables);
-        console.log(dateTime?.setHours(dateTime.getHours() -2));
+        var tables: Table[] = []
+        if(combineTables)
+        {
+            tables = combinedTables
+        }
+        else
+        {
+            console.log(selectedTable);
+            if(selectedTable) tables.push(selectedTable);
+        }
+        const testReservation = new Reservation(dateTime!, name!, phoneNumber!, email!, guestsNumber!, tables);
+        console.log(testReservation);
     };
 
     return (
@@ -180,10 +215,10 @@ export const ReservationForm = () => {
                         <Form.Control onChange={(e)=> {setGuestsNumber(parseInt(e.target.value)); setGuestChanged(true);}} type="number" placeholder="total guests" min = "0" />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Select Table</Form.Label>
-                        <Form.Select aria-label="Default select example">
-                            <option>Open this select menu</option>
-                            {combineTables ? <option>fuck you</option> : optionsList.sort((a,b)=> a.tableNumber < b.tableNumber? -1: 1).map((x) => (<option>Table Number: {x.tableNumber}</option>))}
+                        <Form.Label>{combineTables ? <>Combined Table</> : <>Select Table</>}</Form.Label>
+                        <Form.Select aria-label="Default select example" onChange={(e: any) => {handleSelectTable(e.target.value)}}>
+                            {combineTables ? <></> : <option>Open this select menu</option>}
+                            {combineTables ? <option>{combinedTables.map((x) => {return x.tableNumber + (combinedTables.indexOf(x) === (combinedTables.length - 1) ? "" : " + ")})}</option> : optionsList.sort((a,b)=> a.tableNumber < b.tableNumber? -1: 1).map((x) => (<option value={x.tableNumber}>Table Number: {x.tableNumber}</option>))}
                         </Form.Select>
                     </Form.Group>
                     <Button variant="primary" onClick={handleSubmit}> Submit </Button>
