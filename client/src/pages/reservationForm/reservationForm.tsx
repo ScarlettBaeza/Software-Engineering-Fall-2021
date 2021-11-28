@@ -196,15 +196,15 @@ export const ReservationForm = () => {
                 <Form>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Name</Form.Label>
-                        <Form.Control onChange={(e)=> setName(e.target.value)} type="text" placeholder="Full Name" />
+                        <Form.Control onChange={(e)=> setName(e.target.value)} type="text" placeholder="Full Name" required/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Phone Number</Form.Label>
-                        <Form.Control onChange={(e)=> setPhoneNumber(e.target.value)} type="text" placeholder="phone number" />
+                        <Form.Control onChange={(e)=> setPhoneNumber(e.target.value)} type="text" placeholder="phone number" required/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control onChange={(e)=> setEmail(e.target.value)} type="email" placeholder="email address" />
+                        <Form.Control onChange={(e)=> setEmail(e.target.value)} type="email" placeholder="email address" required/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Date and Time Picker</Form.Label>
@@ -212,7 +212,7 @@ export const ReservationForm = () => {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Number of Guests</Form.Label>
-                        <Form.Control onChange={(e)=> {setGuestsNumber(parseInt(e.target.value)); setGuestChanged(true);}} type="number" placeholder="total guests" min = "0" />
+                        <Form.Control onChange={(e)=> {setGuestsNumber(parseInt(e.target.value)); setGuestChanged(true);}} type="number" placeholder="total guests" min = "0" required/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>{combineTables ? <>Combined Table</> : <>Select Table</>}</Form.Label>
