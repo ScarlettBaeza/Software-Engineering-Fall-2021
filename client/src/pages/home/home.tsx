@@ -55,9 +55,23 @@ export const Home = () => {
 
     return (
         <>
-            <h1 className = "text">WELCOME!</h1>
-            <Button className = "resMake" onClick = {handleTest}>Make a Reservation</Button>
-            <Button className = "resGet" onClick = {handleGet}> Get All Reservations</Button>
+        <div id="loginBox">
+            <div className="left">
+                <h1 className="signup">Sign up Today</h1>
+                <input type="text" name="username" placeholder="Username" />
+                <input type="text" name="email" placeholder="E-mail" />
+                <input type="password" name="password" placeholder="Password" />
+                <input type="password" name="password2" placeholder="Retype password" />
+                <Button type="submit" name="signup_submit" value="Sign me up"> Sign me up </Button>
+            </div> 
+
+            <div className="or">OR</div>
+            
+            <div className="right">
+                <h1 className="contGuest">Continue as Guest</h1>
+                <Button className = "resMake" onClick = {handleTest} href="resForm">Make a Reservation</Button>
+            </div>
+        </div>
         </>
     );
 }
