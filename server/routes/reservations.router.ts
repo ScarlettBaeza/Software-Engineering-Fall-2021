@@ -29,11 +29,27 @@ reservationsRouter.get("/:id", async (req: Request, res: Response) => {
     }
 });
 
+reservationsRouter.get("/day/:date", async (req: Request, res: Response) => {
+    try {
+        const date = req?.params?.date;
+        
+        const dateString = date.substr(0,10);
+        console.log(dateString);
+        var regex = new RegExp("^" + dateString, "g");
+        const reservation = (await collections.Reservations!.find({ dateTime : regex}).toArray()) as Reservation[];
+        if (reservation) res.status(200).send(reservation);
+        else throw(console.error());
+        
+    } catch (error: any) {
+        res.status(404).send(`Unable to find reservation: ${req.params.id}`);
+    }
+});
+
 reservationsRouter.get("/:startTime/:endTime", async (req: Request, res: Response) => {
     try {
         const startTime = req?.params?.startTime;
         const endTime = req?.params?.endTime;
-        const reservation = (await collections.Reservations!.find({ dateTime : { $gt: startTime, $lt: endTime}}).toArray()) as Reservation[];
+        const reservation = (await collections.Reservations!.find({ dateTime : { $gt: startTime, $lt: endTime }}).toArray()) as Reservation[];
         if (reservation) res.status(200).send(reservation);
         else throw(console.error());
         

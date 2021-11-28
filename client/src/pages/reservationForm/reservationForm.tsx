@@ -7,8 +7,8 @@ import Reservation from '../../models/reservation';
 import Table from '../../models/table'
 import { TableGrid } from '../../components/tableGrid/tableGrid';
 import Datetime from 'react-datetime';
+import { checkBusyDay, checkDayofWeek, checkHolidays } from '../../assets/scripts/highTrafficChecker'
 import "react-datetime/css/react-datetime.css";
-import { table } from 'console';
 
 export const ReservationForm = () => {
     const [name,setName] = useState<string>();
@@ -32,8 +32,8 @@ export const ReservationForm = () => {
         if(dateTime)
         {
             setDateTimeChanged(true);
-            let startDate = new Date(dateTime.getTime() - 5400000);
-            let endDate = new Date(dateTime.getTime() + 5400000);
+            let startDate = new Date(dateTime.getTime() - 3600000);
+            let endDate = new Date(dateTime.getTime() + 3600000);
             axios.get<Reservation[]>('http://localhost:8080/reservation/' + startDate.toISOString() + '/' + endDate.toISOString())
             .then((result)=> setReservations(result.data));
         }
@@ -92,7 +92,6 @@ export const ReservationForm = () => {
                 var numberOfGuests = guestsNumber;
                 var totalCapacity = 0;
                 var tablesRemaining = availableTables.sort((a,b) => (a.tableCapacity < b.tableCapacity ? 1 : -1));
-                var capacities = returnUniqueCapacity(availableTables)
                 var combinedTables: Table[] = [];
                 if(tablesRemaining)
                 {
@@ -103,7 +102,6 @@ export const ReservationForm = () => {
                         totalCapacity = totalCapacity + table.tableCapacity;
                     }
                 }
-                console.log(combinedTables);
                 availableTables.sort((a,b) => (a.tableCapacity < b.tableCapacity ? -1 : 1));
                 if(combinedTables[combinedTables.length-1])
                 {
@@ -182,9 +180,11 @@ export const ReservationForm = () => {
         }
         else
         {
-            console.log(selectedTable);
             if(selectedTable) tables.push(selectedTable);
         }
+        console.log(checkHolidays(dateTime!));
+        console.log(checkDayofWeek(dateTime!));
+        checkBusyDay(dateTime!);
         const testReservation = new Reservation(dateTime!, name!, phoneNumber!, email!, guestsNumber!, tables);
         console.log(testReservation);
     };
