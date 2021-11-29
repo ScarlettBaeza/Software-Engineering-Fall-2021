@@ -9,6 +9,7 @@ import { TableGrid } from '../../components/tableGrid/tableGrid';
 import Datetime from 'react-datetime';
 import { checkBusyDay, checkDayofWeek, checkHolidays } from '../../assets/scripts/highTrafficChecker'
 import "react-datetime/css/react-datetime.css";
+import moment from 'moment';
 
 export const ReservationForm = () => {
     const [name,setName] = useState<string>();
@@ -27,7 +28,8 @@ export const ReservationForm = () => {
     const [combineTables, setCombineTables] = useState<boolean>(false);
     const [combinedTables, setCombinedTables] = useState<Table[]>([]);
     const [freeTables, setFreeTables] = useState<boolean[]>([true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]);
-    
+    const [validated, setValidated] = useState<boolean>(false);
+
     useEffect(() => {
         if(dateTime)
         {
@@ -151,7 +153,8 @@ export const ReservationForm = () => {
         return map;
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (event: any) => {
+        /*
         var tables: Table[] = []
         if(combineTables)
         {
@@ -165,14 +168,39 @@ export const ReservationForm = () => {
         console.log(testReservation);
         axios.post("http://localhost:8080/reservation", testReservation)
         .then((res) => console.log(res.data));
+        */
+        const form = event.currentTarget;
+        if(form.checkValidity() === false)
+        {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        else
+        {
+            event.preventDefault();
+            var tables: Table[] = []
+            if(combineTables)
+            {
+                tables = combinedTables
+            }
+            else
+            {
+                if(selectedTable) tables.push(selectedTable);
+            }
+            const testReservation = new Reservation(dateTime!, name!, phoneNumber!, email!, guestsNumber!, tables);
+            axios.post("http://localhost:8080/reservation", testReservation)
+            .then((res) => console.log(res.data));
+        }
+
+        setValidated(true);
     };
 
     const handleSelectTable = (tableNum:number) => {
-        console.log(optionsList);
         setSelectedTable(optionsList.find((x) => x.tableNumber == tableNum));
     };
 
-    const handleTest = () => {
+    const handleTest = (event: any) => {
+        /*
         var tables: Table[] = []
         if(combineTables)
         {
@@ -187,28 +215,48 @@ export const ReservationForm = () => {
         checkBusyDay(dateTime!);
         const testReservation = new Reservation(dateTime!, name!, phoneNumber!, email!, guestsNumber!, tables);
         console.log(testReservation);
+        */
+        const form = event.currentTarget;
+        if(form.checkValidity() === false)
+        {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        else
+        {
+            console.log("submitted!");
+        }
+        setValidated(true);
     };
+
+    const valid = (current: any) => {
+        var yesterday = moment().subtract(1, "day");
+        return current.isAfter(yesterday)
+    }
 
     return (
         <div className="container">
             <div className="row">
                 <div className="col-sm">
-                <Form>
+                <Form noValidate validated = {validated} onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Name</Form.Label>
                         <Form.Control onChange={(e)=> setName(e.target.value)} type="text" placeholder="Full Name" required/>
+                        <Form.Control.Feedback type="invalid">Please enter a name.</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Phone Number</Form.Label>
-                        <Form.Control onChange={(e)=> setPhoneNumber(e.target.value)} type="text" placeholder="phone number" required/>
+                        <Form.Control onChange={(e)=> setPhoneNumber(e.target.value)} type="tel" placeholder="phone number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required/>
+                        <Form.Control.Feedback type="invalid">Please enter a valid phone number.</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Email</Form.Label>
                         <Form.Control onChange={(e)=> setEmail(e.target.value)} type="email" placeholder="email address" required/>
+                        <Form.Control.Feedback type="invalid">Please enter an email.</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Date and Time Picker</Form.Label>
-                        <Datetime onChange={(e: any)=> {setDateTime(e.toDate());}}/>
+                        <Datetime onChange={(e: any)=> {setDateTime(e.toDate());}} isValidDate={valid}/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Number of Guests</Form.Label>
@@ -216,12 +264,12 @@ export const ReservationForm = () => {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>{combineTables ? <>Combined Table</> : <>Select Table</>}</Form.Label>
-                        <Form.Select aria-label="Default select example" onChange={(e: any) => {handleSelectTable(e.target.value)}}>
-                            {combineTables ? <></> : <option>Open this select menu</option>}
-                            {combineTables ? <option>{combinedTables.map((x) => {return x.tableNumber + (combinedTables.indexOf(x) === (combinedTables.length - 1) ? "" : " + ")})}</option> : optionsList.sort((a,b)=> a.tableNumber < b.tableNumber? -1: 1).map((x) => (<option value={x.tableNumber}>Table Number: {x.tableNumber}</option>))}
+                        <Form.Select aria-label="Default select example" onChange={(e: any) => {handleSelectTable(e.target.value)}} required>
+                            {combineTables ? <></> : <option selected disabled value="">Open this select menu</option>}
+                            {combineTables ? <option>Table Numbers: {combinedTables.map((x) => {return x.tableNumber + (combinedTables.indexOf(x) === (combinedTables.length - 1) ? "" : " + ")})}</option> : optionsList.sort((a,b)=> a.tableNumber < b.tableNumber? -1: 1).map((x) => (<option value={x.tableNumber}>Table Number: {x.tableNumber}</option>))}
                         </Form.Select>
                     </Form.Group>
-                    <Button variant="primary" onClick={handleSubmit}> Submit </Button>
+                    <Button type="submit"> Submit </Button>
                     <Button variant="primary" onClick={handleTest}> Test </Button>
                 </Form>
                 </div>
