@@ -256,37 +256,36 @@ export const ReservationForm = () => {
                 <div className="col-sm">
                 <Form noValidate validated = {validated} onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Name</Form.Label>
+                        <Form.Label className="text1">Name</Form.Label>
                         <Form.Control onChange={(e)=> setName(e.target.value)} type="text" placeholder="Full Name" required/>
                         <Form.Control.Feedback type="invalid">Please enter a name.</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Phone Number</Form.Label>
+                        <Form.Label className="text1">Phone Number</Form.Label>
                         <Form.Control onChange={(e)=> setPhoneNumber(e.target.value)} type="tel" placeholder="phone number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required/>
                         <Form.Control.Feedback type="invalid">Please enter a valid phone number.</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Email</Form.Label>
+                        <Form.Label className="text1">Email</Form.Label>
                         <Form.Control onChange={(e)=> setEmail(e.target.value)} type="email" placeholder="email address" required/>
                         <Form.Control.Feedback type="invalid">Please enter an email.</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Date and Time Picker</Form.Label>
+                        <Form.Label className="text1">Date and Time Picker</Form.Label>
                         <Datetime onChange={(e: any)=> {setDateTime(e.toDate());}} isValidDate={valid}/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Number of Guests</Form.Label>
+                        <Form.Label className="text1">Number of Guests</Form.Label>
                         <Form.Control onChange={(e)=> {setGuestsNumber(parseInt(e.target.value)); setGuestChanged(true);}} type="number" placeholder="total guests" min = "0" required/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>{combineTables ? <>Combined Table</> : <>Select Table</>}</Form.Label>
+                        <Form.Label className="text1">{combineTables ? <>Combined Table</> : <>Select Table</>}</Form.Label>
                         <Form.Select aria-label="Default select example" onChange={(e: any) => {handleSelectTable(e.target.value)}} required>
                             {combineTables ? <></> : <option selected disabled value="">Open this select menu</option>}
                             {combineTables ? <option>Table Numbers: {combinedTables.map((x) => {return x.tableNumber + (combinedTables.indexOf(x) === (combinedTables.length - 1) ? "" : " + ")})}</option> : optionsList.sort((a,b)=> a.tableNumber < b.tableNumber? -1: 1).map((x) => (<option value={x.tableNumber}>Table Number: {x.tableNumber}</option>))}
                         </Form.Select>
                     </Form.Group>
                     <Button type="submit"> Submit </Button>
-                    <Button variant="primary" onClick={handleTest}> Test </Button>
                 </Form>
                 </div>
             </div>

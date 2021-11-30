@@ -13,7 +13,7 @@ export const NavigationBar = () => {
                 <Nav className="me-auto">
                     <Nav.Link href="home" className="links">Home</Nav.Link>
                     <Nav.Link href="resForm" className="links">Make A Reservation</Nav.Link>
-                    <Nav.Link href="#" className="links">About</Nav.Link>
+                    <Nav.Link href="about" className="links">About</Nav.Link>
                 </Nav>
             </Container>
         </Navbar>

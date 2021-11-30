@@ -5,6 +5,7 @@ import { Home } from './pages/home/home';
 import { ReservationForm } from './pages/reservationForm/reservationForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import { About } from './pages/about/about';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path = "/home" element ={<Home/>}/>
           <Route path = "/resForm" element = {<ReservationForm/>}/>
+          <Route path = "/about" element = {<About/>}/>
         </Routes>
       </BrowserRouter>
 
