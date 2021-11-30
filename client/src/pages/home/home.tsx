@@ -58,8 +58,8 @@ export const Home = () => {
         <div id="loginBox">
             <div className="left">
                 <h1 className="signup">Sign up Today</h1>
-                <input type="text" name="username" placeholder="Username" />
-                <input type="text" name="email" placeholder="E-mail" />
+                <input className="text" name="username" placeholder="Username" />
+                <input className="text" name="email" placeholder="E-mail" />
                 <input type="password" name="password" placeholder="Password" />
                 <input type="password" name="password2" placeholder="Retype password" />
                 <Button type="submit" name="signup_submit" value="Sign me up"> Sign me up </Button>

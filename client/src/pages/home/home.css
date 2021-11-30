@@ -54,7 +54,7 @@
     text-align: center;
   }
 
-  input[type="text"],
+  .text,
   input[type="password"] {
     display: block;
     box-sizing: border-box;
