@@ -75,7 +75,6 @@ export const checkDayofWeek = (date: Date) => {
 export const checkBusyDay = (date: Date) => {
     var reservations: Reservation[] = [];
     var tables: Table[] = [];
-    console.log('http://localhost:8080/reservation/day/' + date.toISOString());
     axios.get<Reservation[]>('http://localhost:8080/reservation/day/' + date.toISOString())
     .then((result)=> reservations = result.data)
     .then(() => {
@@ -98,4 +97,6 @@ export const checkBusyDay = (date: Date) => {
             return false;
         }
     });
+
+    return false;
 }

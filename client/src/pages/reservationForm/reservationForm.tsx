@@ -8,6 +8,7 @@ import Table from '../../models/table'
 import { TableGrid } from '../../components/tableGrid/tableGrid';
 import Datetime from 'react-datetime';
 import { RegisterModal } from '../../components/registerModal/registerModal';
+import { HighTrafficModal } from '../../components/highTrafficModal/registerModal';
 import { checkBusyDay, checkDayofWeek, checkHolidays } from '../../assets/scripts/highTrafficChecker'
 import "react-datetime/css/react-datetime.css";
 import moment from 'moment';
@@ -30,7 +31,9 @@ export const ReservationForm = () => {
     const [combinedTables, setCombinedTables] = useState<Table[]>([]);
     const [freeTables, setFreeTables] = useState<boolean[]>([true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]);
     const [validated, setValidated] = useState<boolean>(false);
+
     const [showRegisterModal, setShowRegisterModal] = useState<boolean>(false);
+    const [highTrafficReason, setHighTrafficReason] = useState<boolean[]>([false, false, false]);
 
     useEffect(() => {
         if(dateTime)
@@ -180,7 +183,14 @@ export const ReservationForm = () => {
         else
         {
             event.preventDefault();
-            setShowRegisterModal(true);
+            if(checkBusyDay(dateTime!) || checkDayofWeek(dateTime!) || checkHolidays(dateTime!))
+            {
+                console.log("damn its busy");
+            }
+            else
+            {
+                setShowRegisterModal(true);
+            }
         }
 
         setValidated(true);
