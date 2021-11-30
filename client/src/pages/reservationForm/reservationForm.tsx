@@ -7,6 +7,7 @@ import Reservation from '../../models/reservation';
 import Table from '../../models/table'
 import { TableGrid } from '../../components/tableGrid/tableGrid';
 import Datetime from 'react-datetime';
+import { RegisterModal } from '../../components/registerModal/registerModal';
 import { checkBusyDay, checkDayofWeek, checkHolidays } from '../../assets/scripts/highTrafficChecker'
 import "react-datetime/css/react-datetime.css";
 import moment from 'moment';
@@ -29,6 +30,7 @@ export const ReservationForm = () => {
     const [combinedTables, setCombinedTables] = useState<Table[]>([]);
     const [freeTables, setFreeTables] = useState<boolean[]>([true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true]);
     const [validated, setValidated] = useState<boolean>(false);
+    const [showRegisterModal, setShowRegisterModal] = useState<boolean>(false);
 
     useEffect(() => {
         if(dateTime)
@@ -170,7 +172,7 @@ export const ReservationForm = () => {
         .then((res) => console.log(res.data));
         */
         const form = event.currentTarget;
-        if(form.checkValidity() === false)
+        if(form.checkValidity() === false || !dateTimeChanged)
         {
             event.preventDefault();
             event.stopPropagation();
@@ -178,18 +180,7 @@ export const ReservationForm = () => {
         else
         {
             event.preventDefault();
-            var tables: Table[] = []
-            if(combineTables)
-            {
-                tables = combinedTables
-            }
-            else
-            {
-                if(selectedTable) tables.push(selectedTable);
-            }
-            const testReservation = new Reservation(dateTime!, name!, phoneNumber!, email!, guestsNumber!, tables);
-            axios.post("http://localhost:8080/reservation", testReservation)
-            .then((res) => console.log(res.data));
+            setShowRegisterModal(true);
         }
 
         setValidated(true);
@@ -228,6 +219,21 @@ export const ReservationForm = () => {
         }
         setValidated(true);
     };
+
+    const handleSendDatabase = () => {
+        var tables: Table[] = []
+        if(combineTables)
+        {
+            tables = combinedTables
+        }
+        else
+        {
+            if(selectedTable) tables.push(selectedTable);
+        }
+        const testReservation = new Reservation(dateTime!, name!, phoneNumber!, email!, guestsNumber!, tables);
+        axios.post("http://localhost:8080/reservation", testReservation)
+        .then((res) => console.log(res.data));
+    }
 
     const valid = (current: any) => {
         var yesterday = moment().subtract(1, "day");
@@ -275,6 +281,7 @@ export const ReservationForm = () => {
                 </div>
             </div>
             <TableGrid freeTable={freeTables}/>
+            <RegisterModal show = {showRegisterModal} handleClose = {() => {setShowRegisterModal(false)}} handleSubmit = {handleSendDatabase}></RegisterModal>
         </div>
     );
 }
