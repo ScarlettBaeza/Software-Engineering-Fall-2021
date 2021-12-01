@@ -11,7 +11,7 @@ export const RegisterModal = (props: any) => {
             <Modal.Body>Register to manage reservations and to make faster reservations next time!</Modal.Body>
             <Modal.Footer>
                 <Button onClick = {props.handleSubmit}> Submit Reservation without Registering </Button>
-                <Button onClick = {props.handleSubmit}> Submit Reservation and send me to Registration </Button>
+                <Button onClick = {props.handleSubmit}> Submit Reservation and Let Me Register </Button>
             </Modal.Footer>
         </Modal>
     );

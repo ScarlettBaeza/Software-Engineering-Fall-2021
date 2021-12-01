@@ -8,7 +8,7 @@ import Table from '../../models/table'
 import { TableGrid } from '../../components/tableGrid/tableGrid';
 import Datetime from 'react-datetime';
 import { RegisterModal } from '../../components/registerModal/registerModal';
-import { HighTrafficModal } from '../../components/highTrafficModal/registerModal';
+import { HighTrafficModal } from '../../components/highTrafficModal/highTrafficModal';
 import { checkBusyDay, checkDayofWeek, checkHolidays } from '../../assets/scripts/highTrafficChecker'
 import "react-datetime/css/react-datetime.css";
 import moment from 'moment';
@@ -33,7 +33,7 @@ export const ReservationForm = () => {
     const [validated, setValidated] = useState<boolean>(false);
 
     const [showRegisterModal, setShowRegisterModal] = useState<boolean>(false);
-    const [highTrafficReason, setHighTrafficReason] = useState<boolean[]>([false, false, false]);
+    const [showHighTrafficModal, setShowHighTrafficModal] = useState<boolean>(false);
 
     useEffect(() => {
         if(dateTime)
@@ -139,41 +139,7 @@ export const ReservationForm = () => {
         }
     },[dateTimeChanged,guestChanged]);
 
-    
-
-    useEffect(() => {
-        //add logic to limit tables that have extra seats, and allow for combining tables.
-
-        //no, set highlighting boolean array here.
-    },[optionsList]);
-    
-    const returnUniqueCapacity = (arr: Table[]) => {
-        const map = [];
-        for (let value of arr) {
-          if (map.indexOf(value.tableCapacity) === -1) {
-            map.push(value.tableCapacity);
-          }
-        }
-      
-        return map;
-    };
-
     const handleSubmit = (event: any) => {
-        /*
-        var tables: Table[] = []
-        if(combineTables)
-        {
-            tables = combinedTables
-        }
-        else
-        {
-            if(selectedTable) tables.push(selectedTable);
-        }
-        const testReservation = new Reservation(dateTime!, name!, phoneNumber!, email!, guestsNumber!, tables);
-        console.log(testReservation);
-        axios.post("http://localhost:8080/reservation", testReservation)
-        .then((res) => console.log(res.data));
-        */
         const form = event.currentTarget;
         if(form.checkValidity() === false || !dateTimeChanged)
         {
@@ -185,7 +151,7 @@ export const ReservationForm = () => {
             event.preventDefault();
             if(checkBusyDay(dateTime!) || checkDayofWeek(dateTime!) || checkHolidays(dateTime!))
             {
-                console.log("damn its busy");
+                setShowHighTrafficModal(true);
             }
             else
             {
@@ -198,36 +164,6 @@ export const ReservationForm = () => {
 
     const handleSelectTable = (tableNum:number) => {
         setSelectedTable(optionsList.find((x) => x.tableNumber == tableNum));
-    };
-
-    const handleTest = (event: any) => {
-        /*
-        var tables: Table[] = []
-        if(combineTables)
-        {
-            tables = combinedTables
-        }
-        else
-        {
-            if(selectedTable) tables.push(selectedTable);
-        }
-        console.log(checkHolidays(dateTime!));
-        console.log(checkDayofWeek(dateTime!));
-        checkBusyDay(dateTime!);
-        const testReservation = new Reservation(dateTime!, name!, phoneNumber!, email!, guestsNumber!, tables);
-        console.log(testReservation);
-        */
-        const form = event.currentTarget;
-        if(form.checkValidity() === false)
-        {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        else
-        {
-            console.log("submitted!");
-        }
-        setValidated(true);
     };
 
     const handleSendDatabase = () => {
@@ -291,6 +227,7 @@ export const ReservationForm = () => {
             </div>
             <TableGrid freeTable={freeTables}/>
             <RegisterModal show = {showRegisterModal} handleClose = {() => {setShowRegisterModal(false)}} handleSubmit = {handleSendDatabase}></RegisterModal>
+            <HighTrafficModal show = {showHighTrafficModal} handleClose = {() => {setShowHighTrafficModal(false)}} handleNext = {() => {setShowHighTrafficModal(false); setShowRegisterModal(true);}}></HighTrafficModal>
         </div>
     );
 }
