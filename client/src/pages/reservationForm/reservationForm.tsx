@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import './reservationForm.css';
 import axios from 'axios';
 import Reservation from '../../models/reservation';
 import Table from '../../models/table'
@@ -12,6 +11,7 @@ import { HighTrafficModal } from '../../components/highTrafficModal/highTrafficM
 import { checkBusyDay, checkDayofWeek, checkHolidays } from '../../assets/scripts/highTrafficChecker'
 import "react-datetime/css/react-datetime.css";
 import moment from 'moment';
+import './reservationForm.css';
 
 export const ReservationForm = () => {
     const [name,setName] = useState<string>();
@@ -34,6 +34,7 @@ export const ReservationForm = () => {
 
     const [showRegisterModal, setShowRegisterModal] = useState<boolean>(false);
     const [showHighTrafficModal, setShowHighTrafficModal] = useState<boolean>(false);
+    const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
 
     useEffect(() => {
         if(dateTime)
@@ -187,47 +188,51 @@ export const ReservationForm = () => {
     }
 
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-sm">
-                <Form noValidate validated = {validated} onSubmit={handleSubmit}>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label className="text1">Name</Form.Label>
-                        <Form.Control onChange={(e)=> setName(e.target.value)} type="text" placeholder="Full Name" required/>
-                        <Form.Control.Feedback type="invalid">Please enter a name.</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label className="text1">Phone Number</Form.Label>
-                        <Form.Control onChange={(e)=> setPhoneNumber(e.target.value)} type="tel" placeholder="Phone Number ###-###-####" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required/>
-                        <Form.Control.Feedback type="invalid">Please enter a valid phone number.</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label className="text1">Email</Form.Label>
-                        <Form.Control onChange={(e)=> setEmail(e.target.value)} type="email" placeholder="Email Address" required/>
-                        <Form.Control.Feedback type="invalid">Please enter an email.</Form.Control.Feedback>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label className="text1">Date and Time Picker</Form.Label>
-                        <Datetime onChange={(e: any)=> {setDateTime(e.toDate());}} isValidDate={valid}/>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label className="text1">Number of Guests</Form.Label>
-                        <Form.Control onChange={(e)=> {setGuestsNumber(parseInt(e.target.value)); setGuestChanged(true);}} type="number" placeholder="Total Guests" min = "0" required/>
-                    </Form.Group>
-                    <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label className="text1">{combineTables ? <>Combined Table</> : <>Select Table</>}</Form.Label>
-                        <Form.Select aria-label="Default select example" onChange={(e: any) => {handleSelectTable(e.target.value)}} required>
-                            {combineTables ? <></> : <option selected disabled value="">Open this select menu</option>}
-                            {combineTables ? <option>Table Numbers: {combinedTables.map((x) => {return x.tableNumber + (combinedTables.indexOf(x) === (combinedTables.length - 1) ? "" : " + ")})}</option> : optionsList.sort((a,b)=> a.tableNumber < b.tableNumber? -1: 1).map((x) => (<option value={x.tableNumber}>Table Number: {x.tableNumber}</option>))}
-                        </Form.Select>
-                    </Form.Group>
-                    <Button type="submit"> Submit </Button>
-                </Form>
+        <div className ="superContainer">
+            <div className="container">
+                <div className="row align-items-center">
+                    <div className="col-sm">
+                        <Form noValidate validated = {validated} onSubmit={handleSubmit}>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label className="text1">Name</Form.Label>
+                                <Form.Control onChange={(e)=> setName(e.target.value)} type="text" placeholder="Full Name" required/>
+                                <Form.Control.Feedback type="invalid">Please enter a name.</Form.Control.Feedback>
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label className="text1">Phone Number</Form.Label>
+                                <Form.Control onChange={(e)=> setPhoneNumber(e.target.value)} type="tel" placeholder="Phone Number ###-###-####" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required/>
+                                <Form.Control.Feedback type="invalid">Please enter a valid phone number in ###-###-### format.</Form.Control.Feedback>
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label className="text1">Email</Form.Label>
+                                <Form.Control onChange={(e)=> setEmail(e.target.value)} type="email" placeholder="Email Address" required/>
+                                <Form.Control.Feedback type="invalid">Please enter an email.</Form.Control.Feedback>
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label className="text1">Date and Time Picker</Form.Label>
+                                <Datetime onChange={(e: any)=> {setDateTime(e.toDate());}} isValidDate={valid}/>
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label className="text1">Number of Guests</Form.Label>
+                                <Form.Control onChange={(e)=> {setGuestsNumber(parseInt(e.target.value)); setGuestChanged(true);}} type="number" placeholder="Total Guests" min = "0" required/>
+                            </Form.Group>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                <Form.Label className="text1">{combineTables ? <>Combined Table</> : <>Select Table</>}</Form.Label>
+                                <Form.Select aria-label="Default select example" onChange={(e: any) => {handleSelectTable(e.target.value)}} required>
+                                    {combineTables ? <></> : <option selected disabled value="">Open this select menu</option>}
+                                    {combineTables ? <option>Table Numbers: {combinedTables.map((x) => {return x.tableNumber + (combinedTables.indexOf(x) === (combinedTables.length - 1) ? "" : " + ")})}</option> : optionsList.sort((a,b)=> a.tableNumber < b.tableNumber? -1: 1).map((x) => (<option value={x.tableNumber}>Table Number: {x.tableNumber}</option>))}
+                                </Form.Select>
+                            </Form.Group>
+                            <Button type="submit"> Submit </Button>
+                        </Form>
+                    </div>
+                    <div className="col-sm">
+                        <TableGrid freeTable={freeTables}/>
+                    </div>
                 </div>
+                <RegisterModal show = {showRegisterModal} handleClose = {() => {setShowRegisterModal(false)}} handleSubmit = {handleSendDatabase}></RegisterModal>
+                <HighTrafficModal show = {showHighTrafficModal} handleClose = {() => {setShowHighTrafficModal(false)}} handleNext = {() => {setShowHighTrafficModal(false); setShowRegisterModal(true);}}></HighTrafficModal>
             </div>
-            <TableGrid freeTable={freeTables}/>
-            <RegisterModal show = {showRegisterModal} handleClose = {() => {setShowRegisterModal(false)}} handleSubmit = {handleSendDatabase}></RegisterModal>
-            <HighTrafficModal show = {showHighTrafficModal} handleClose = {() => {setShowHighTrafficModal(false)}} handleNext = {() => {setShowHighTrafficModal(false); setShowRegisterModal(true);}}></HighTrafficModal>
         </div>
     );
 }

@@ -9,3 +9,8 @@ body {
 .text1 {
   font-size: 20px;
 }
+
+.superContainer {
+  padding-top: 75px;
+  padding-bottom: 130px;
+}
