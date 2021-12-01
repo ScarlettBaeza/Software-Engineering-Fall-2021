@@ -178,7 +178,7 @@ export const ReservationForm = () => {
         }
         const testReservation = new Reservation(dateTime!, name!, phoneNumber!, email!, guestsNumber!, tables);
         axios.post("http://localhost:8080/reservation", testReservation)
-        .then((res) => console.log(res.data));
+        .then(() => window.location.reload());
     }
 
     const valid = (current: any) => {
@@ -198,12 +198,12 @@ export const ReservationForm = () => {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label className="text1">Phone Number</Form.Label>
-                        <Form.Control onChange={(e)=> setPhoneNumber(e.target.value)} type="tel" placeholder="phone number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required/>
+                        <Form.Control onChange={(e)=> setPhoneNumber(e.target.value)} type="tel" placeholder="Phone Number ###-###-####" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required/>
                         <Form.Control.Feedback type="invalid">Please enter a valid phone number.</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label className="text1">Email</Form.Label>
-                        <Form.Control onChange={(e)=> setEmail(e.target.value)} type="email" placeholder="email address" required/>
+                        <Form.Control onChange={(e)=> setEmail(e.target.value)} type="email" placeholder="Email Address" required/>
                         <Form.Control.Feedback type="invalid">Please enter an email.</Form.Control.Feedback>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -212,7 +212,7 @@ export const ReservationForm = () => {
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label className="text1">Number of Guests</Form.Label>
-                        <Form.Control onChange={(e)=> {setGuestsNumber(parseInt(e.target.value)); setGuestChanged(true);}} type="number" placeholder="total guests" min = "0" required/>
+                        <Form.Control onChange={(e)=> {setGuestsNumber(parseInt(e.target.value)); setGuestChanged(true);}} type="number" placeholder="Total Guests" min = "0" required/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label className="text1">{combineTables ? <>Combined Table</> : <>Select Table</>}</Form.Label>
