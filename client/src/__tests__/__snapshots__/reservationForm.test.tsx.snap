@@ -1,897 +1,932 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correctly 1`] = `
+exports[`Reservation form renders correctly 1`] = `
 <div
-  className="container"
+  className="superContainer"
 >
   <div
-    className="row"
+    className="container"
   >
     <div
-      className="col-sm"
+      className="row align-items-center"
     >
-      <form
-        className=""
-        noValidate={true}
-        onSubmit={[Function]}
+      <div
+        className="col-sm"
       >
-        <div
-          className="mb-3"
+        <form
+          className=""
+          noValidate={true}
+          onSubmit={[Function]}
         >
-          <label
-            className="text1 form-label"
-            htmlFor="exampleForm.ControlInput1"
-          >
-            Name
-          </label>
-          <input
-            className="form-control"
-            id="exampleForm.ControlInput1"
-            onChange={[Function]}
-            placeholder="Full Name"
-            required={true}
-            type="text"
-          />
           <div
-            className="invalid-feedback"
+            className="mb-3"
           >
-            Please enter a name.
-          </div>
-        </div>
-        <div
-          className="mb-3"
-        >
-          <label
-            className="text1 form-label"
-            htmlFor="exampleForm.ControlInput1"
-          >
-            Phone Number
-          </label>
-          <input
-            className="form-control"
-            id="exampleForm.ControlInput1"
-            onChange={[Function]}
-            pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-            placeholder="Phone Number ###-###-####"
-            required={true}
-            type="tel"
-          />
-          <div
-            className="invalid-feedback"
-          >
-            Please enter a valid phone number.
-          </div>
-        </div>
-        <div
-          className="mb-3"
-        >
-          <label
-            className="text1 form-label"
-            htmlFor="exampleForm.ControlInput1"
-          >
-            Email
-          </label>
-          <input
-            className="form-control"
-            id="exampleForm.ControlInput1"
-            onChange={[Function]}
-            placeholder="Email Address"
-            required={true}
-            type="email"
-          />
-          <div
-            className="invalid-feedback"
-          >
-            Please enter an email.
-          </div>
-        </div>
-        <div
-          className="mb-3"
-        >
-          <label
-            className="text1 form-label"
-            htmlFor="exampleForm.ControlInput1"
-          >
-            Date and Time Picker
-          </label>
-          <div
-            className="rdt"
-          >
+            <label
+              className="text1 form-label"
+              htmlFor="exampleForm.ControlInput1"
+            >
+              Name
+            </label>
             <input
               className="form-control"
+              id="exampleForm.ControlInput1"
               onChange={[Function]}
-              onClick={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
+              placeholder="Full Name"
+              required={true}
               type="text"
-              value=""
             />
             <div
-              className="rdtPicker"
+              className="invalid-feedback"
             >
+              Please enter a name.
+            </div>
+          </div>
+          <div
+            className="mb-3"
+          >
+            <label
+              className="text1 form-label"
+              htmlFor="exampleForm.ControlInput1"
+            >
+              Phone Number
+            </label>
+            <input
+              className="form-control"
+              id="exampleForm.ControlInput1"
+              onChange={[Function]}
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              placeholder="Phone Number ###-###-####"
+              required={true}
+              type="tel"
+            />
+            <div
+              className="invalid-feedback"
+            >
+              Please enter a valid phone number in ###-###-### format.
+            </div>
+          </div>
+          <div
+            className="mb-3"
+          >
+            <label
+              className="text1 form-label"
+              htmlFor="exampleForm.ControlInput1"
+            >
+              Email
+            </label>
+            <input
+              className="form-control"
+              id="exampleForm.ControlInput1"
+              onChange={[Function]}
+              placeholder="Email Address"
+              required={true}
+              type="email"
+            />
+            <div
+              className="invalid-feedback"
+            >
+              Please enter an email.
+            </div>
+          </div>
+          <div
+            className="mb-3"
+          >
+            <label
+              className="text1 form-label"
+              htmlFor="exampleForm.ControlInput1"
+            >
+              Date and Time Picker
+            </label>
+            <div
+              className="rdt"
+            >
+              <input
+                className="form-control"
+                onChange={[Function]}
+                onClick={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                type="text"
+                value=""
+              />
               <div
-                className="rdtDays"
+                className="rdtPicker"
               >
-                <table>
-                  <thead>
-                    <tr>
-                      <th
-                        className="rdtPrev"
-                        onClick={[Function]}
-                      >
-                        <span>
-                          ‹
-                        </span>
-                      </th>
-                      <th
-                        className="rdtSwitch"
-                        colSpan={5}
-                        data-value={10}
-                        onClick={[Function]}
-                      >
-                        November 2021
-                      </th>
-                      <th
-                        className="rdtNext"
-                        onClick={[Function]}
-                      >
-                        <span>
-                          ›
-                        </span>
-                      </th>
-                    </tr>
-                    <tr>
-                      <th
-                        className="dow"
-                      >
-                        Su
-                      </th>
-                      <th
-                        className="dow"
-                      >
-                        Mo
-                      </th>
-                      <th
-                        className="dow"
-                      >
-                        Tu
-                      </th>
-                      <th
-                        className="dow"
-                      >
-                        We
-                      </th>
-                      <th
-                        className="dow"
-                      >
-                        Th
-                      </th>
-                      <th
-                        className="dow"
-                      >
-                        Fr
-                      </th>
-                      <th
-                        className="dow"
-                      >
-                        Sa
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td
-                        className="rdtDay rdtOld rdtDisabled"
-                        data-month={9}
-                        data-value={31}
-                        data-year={2021}
-                      >
-                        31
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={1}
-                        data-year={2021}
-                      >
-                        1
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={2}
-                        data-year={2021}
-                      >
-                        2
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={3}
-                        data-year={2021}
-                      >
-                        3
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={4}
-                        data-year={2021}
-                      >
-                        4
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={5}
-                        data-year={2021}
-                      >
-                        5
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={6}
-                        data-year={2021}
-                      >
-                        6
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={7}
-                        data-year={2021}
-                      >
-                        7
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={8}
-                        data-year={2021}
-                      >
-                        8
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={9}
-                        data-year={2021}
-                      >
-                        9
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={10}
-                        data-year={2021}
-                      >
-                        10
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={11}
-                        data-year={2021}
-                      >
-                        11
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={12}
-                        data-year={2021}
-                      >
-                        12
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={13}
-                        data-year={2021}
-                      >
-                        13
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={14}
-                        data-year={2021}
-                      >
-                        14
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={15}
-                        data-year={2021}
-                      >
-                        15
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={16}
-                        data-year={2021}
-                      >
-                        16
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={17}
-                        data-year={2021}
-                      >
-                        17
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={18}
-                        data-year={2021}
-                      >
-                        18
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={19}
-                        data-year={2021}
-                      >
-                        19
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={20}
-                        data-year={2021}
-                      >
-                        20
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={21}
-                        data-year={2021}
-                      >
-                        21
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={22}
-                        data-year={2021}
-                      >
-                        22
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={23}
-                        data-year={2021}
-                      >
-                        23
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={24}
-                        data-year={2021}
-                      >
-                        24
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={25}
-                        data-year={2021}
-                      >
-                        25
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={26}
-                        data-year={2021}
-                      >
-                        26
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={27}
-                        data-year={2021}
-                      >
-                        27
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={28}
-                        data-year={2021}
-                      >
-                        28
-                      </td>
-                      <td
-                        className="rdtDay rdtDisabled"
-                        data-month={10}
-                        data-value={29}
-                        data-year={2021}
-                      >
-                        29
-                      </td>
-                      <td
-                        className="rdtDay rdtToday"
-                        data-month={10}
-                        data-value={30}
-                        data-year={2021}
-                        onClick={[Function]}
-                      >
-                        30
-                      </td>
-                      <td
-                        className="rdtDay rdtNew"
-                        data-month={11}
-                        data-value={1}
-                        data-year={2021}
-                        onClick={[Function]}
-                      >
-                        1
-                      </td>
-                      <td
-                        className="rdtDay rdtNew"
-                        data-month={11}
-                        data-value={2}
-                        data-year={2021}
-                        onClick={[Function]}
-                      >
-                        2
-                      </td>
-                      <td
-                        className="rdtDay rdtNew"
-                        data-month={11}
-                        data-value={3}
-                        data-year={2021}
-                        onClick={[Function]}
-                      >
-                        3
-                      </td>
-                      <td
-                        className="rdtDay rdtNew"
-                        data-month={11}
-                        data-value={4}
-                        data-year={2021}
-                        onClick={[Function]}
-                      >
-                        4
-                      </td>
-                    </tr>
-                    <tr>
-                      <td
-                        className="rdtDay rdtNew"
-                        data-month={11}
-                        data-value={5}
-                        data-year={2021}
-                        onClick={[Function]}
-                      >
-                        5
-                      </td>
-                      <td
-                        className="rdtDay rdtNew"
-                        data-month={11}
-                        data-value={6}
-                        data-year={2021}
-                        onClick={[Function]}
-                      >
-                        6
-                      </td>
-                      <td
-                        className="rdtDay rdtNew"
-                        data-month={11}
-                        data-value={7}
-                        data-year={2021}
-                        onClick={[Function]}
-                      >
-                        7
-                      </td>
-                      <td
-                        className="rdtDay rdtNew"
-                        data-month={11}
-                        data-value={8}
-                        data-year={2021}
-                        onClick={[Function]}
-                      >
-                        8
-                      </td>
-                      <td
-                        className="rdtDay rdtNew"
-                        data-month={11}
-                        data-value={9}
-                        data-year={2021}
-                        onClick={[Function]}
-                      >
-                        9
-                      </td>
-                      <td
-                        className="rdtDay rdtNew"
-                        data-month={11}
-                        data-value={10}
-                        data-year={2021}
-                        onClick={[Function]}
-                      >
-                        10
-                      </td>
-                      <td
-                        className="rdtDay rdtNew"
-                        data-month={11}
-                        data-value={11}
-                        data-year={2021}
-                        onClick={[Function]}
-                      >
-                        11
-                      </td>
-                    </tr>
-                  </tbody>
-                  <tfoot>
-                    <tr>
-                      <td
-                        className="rdtTimeToggle"
-                        colSpan={7}
-                        onClick={[Function]}
-                      >
-                        12:00 AM
-                      </td>
-                    </tr>
-                  </tfoot>
-                </table>
+                <div
+                  className="rdtDays"
+                >
+                  <table>
+                    <thead>
+                      <tr>
+                        <th
+                          className="rdtPrev"
+                          onClick={[Function]}
+                        >
+                          <span>
+                            ‹
+                          </span>
+                        </th>
+                        <th
+                          className="rdtSwitch"
+                          colSpan={5}
+                          data-value={11}
+                          onClick={[Function]}
+                        >
+                          December 2021
+                        </th>
+                        <th
+                          className="rdtNext"
+                          onClick={[Function]}
+                        >
+                          <span>
+                            ›
+                          </span>
+                        </th>
+                      </tr>
+                      <tr>
+                        <th
+                          className="dow"
+                        >
+                          Su
+                        </th>
+                        <th
+                          className="dow"
+                        >
+                          Mo
+                        </th>
+                        <th
+                          className="dow"
+                        >
+                          Tu
+                        </th>
+                        <th
+                          className="dow"
+                        >
+                          We
+                        </th>
+                        <th
+                          className="dow"
+                        >
+                          Th
+                        </th>
+                        <th
+                          className="dow"
+                        >
+                          Fr
+                        </th>
+                        <th
+                          className="dow"
+                        >
+                          Sa
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td
+                          className="rdtDay rdtOld rdtDisabled"
+                          data-month={10}
+                          data-value={28}
+                          data-year={2021}
+                        >
+                          28
+                        </td>
+                        <td
+                          className="rdtDay rdtOld rdtDisabled"
+                          data-month={10}
+                          data-value={29}
+                          data-year={2021}
+                        >
+                          29
+                        </td>
+                        <td
+                          className="rdtDay rdtOld rdtDisabled"
+                          data-month={10}
+                          data-value={30}
+                          data-year={2021}
+                        >
+                          30
+                        </td>
+                        <td
+                          className="rdtDay rdtToday"
+                          data-month={11}
+                          data-value={1}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          1
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={2}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          2
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={3}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          3
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={4}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          4
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={5}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          5
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={6}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          6
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={7}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          7
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={8}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          8
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={9}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          9
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={10}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          10
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={11}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          11
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={12}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          12
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={13}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          13
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={14}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          14
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={15}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          15
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={16}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          16
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={17}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          17
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={18}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          18
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={19}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          19
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={20}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          20
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={21}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          21
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={22}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          22
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={23}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          23
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={24}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          24
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={25}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          25
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={26}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          26
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={27}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          27
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={28}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          28
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={29}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          29
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={30}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          30
+                        </td>
+                        <td
+                          className="rdtDay"
+                          data-month={11}
+                          data-value={31}
+                          data-year={2021}
+                          onClick={[Function]}
+                        >
+                          31
+                        </td>
+                        <td
+                          className="rdtDay rdtNew"
+                          data-month={0}
+                          data-value={1}
+                          data-year={2022}
+                          onClick={[Function]}
+                        >
+                          1
+                        </td>
+                      </tr>
+                      <tr>
+                        <td
+                          className="rdtDay rdtNew"
+                          data-month={0}
+                          data-value={2}
+                          data-year={2022}
+                          onClick={[Function]}
+                        >
+                          2
+                        </td>
+                        <td
+                          className="rdtDay rdtNew"
+                          data-month={0}
+                          data-value={3}
+                          data-year={2022}
+                          onClick={[Function]}
+                        >
+                          3
+                        </td>
+                        <td
+                          className="rdtDay rdtNew"
+                          data-month={0}
+                          data-value={4}
+                          data-year={2022}
+                          onClick={[Function]}
+                        >
+                          4
+                        </td>
+                        <td
+                          className="rdtDay rdtNew"
+                          data-month={0}
+                          data-value={5}
+                          data-year={2022}
+                          onClick={[Function]}
+                        >
+                          5
+                        </td>
+                        <td
+                          className="rdtDay rdtNew"
+                          data-month={0}
+                          data-value={6}
+                          data-year={2022}
+                          onClick={[Function]}
+                        >
+                          6
+                        </td>
+                        <td
+                          className="rdtDay rdtNew"
+                          data-month={0}
+                          data-value={7}
+                          data-year={2022}
+                          onClick={[Function]}
+                        >
+                          7
+                        </td>
+                        <td
+                          className="rdtDay rdtNew"
+                          data-month={0}
+                          data-value={8}
+                          data-year={2022}
+                          onClick={[Function]}
+                        >
+                          8
+                        </td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <td
+                          className="rdtTimeToggle"
+                          colSpan={7}
+                          onClick={[Function]}
+                        >
+                          12:00 AM
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div
-          className="mb-3"
-        >
-          <label
-            className="text1 form-label"
-            htmlFor="exampleForm.ControlInput1"
+          <div
+            className="mb-3"
           >
-            Number of Guests
-          </label>
-          <input
-            className="form-control"
-            id="exampleForm.ControlInput1"
-            min="0"
-            onChange={[Function]}
-            placeholder="Total Guests"
-            required={true}
-            type="number"
-          />
-        </div>
-        <div
-          className="mb-3"
-        >
-          <label
-            className="text1 form-label"
-            htmlFor="exampleForm.ControlInput1"
-          >
-            Select Table
-          </label>
-          <select
-            aria-label="Default select example"
-            className="form-select"
-            id="exampleForm.ControlInput1"
-            onChange={[Function]}
-            required={true}
-          >
-            <option
-              disabled={true}
-              selected={true}
-              value=""
+            <label
+              className="text1 form-label"
+              htmlFor="exampleForm.ControlInput1"
             >
-              Open this select menu
-            </option>
-          </select>
-        </div>
-        <button
-          className="btn btn-primary"
-          disabled={false}
-          type="submit"
-        >
-           Submit 
-        </button>
-      </form>
-    </div>
-  </div>
-  <div
-    className="grid"
-  >
-    <div
-      className="container"
-    >
-      <div
-        className="row g-1"
-      >
-        <div
-          className="col-2 align-self-center"
-        >
-          <div
-            className="sixTable"
-            style={
-              Object {
-                "backgroundColor": "#2bff6b",
-                "boxShadow": "",
-              }
-            }
-          >
-            1
+              Number of Guests
+            </label>
+            <input
+              className="form-control"
+              id="exampleForm.ControlInput1"
+              min="0"
+              onChange={[Function]}
+              placeholder="Total Guests"
+              required={true}
+              type="number"
+            />
           </div>
-        </div>
-        <div
-          className="col-1 align-self-center"
-        >
           <div
-            className="twoTable"
-            style={
-              Object {
-                "backgroundColor": "#2bff6b",
-                "boxShadow": "",
-              }
-            }
+            className="mb-3"
           >
-            2
+            <label
+              className="text1 form-label"
+              htmlFor="exampleForm.ControlInput1"
+            >
+              Select Table
+            </label>
+            <select
+              aria-label="Default select example"
+              className="form-select"
+              id="exampleForm.ControlInput1"
+              onChange={[Function]}
+              required={true}
+            >
+              <option
+                disabled={true}
+                selected={true}
+                value=""
+              >
+                Open this select menu
+              </option>
+            </select>
           </div>
-        </div>
-        <div
-          className="col-2 align-self-center"
-        >
-          <div
-            className="fourTable"
-            style={
-              Object {
-                "backgroundColor": "#2bff6b",
-                "boxShadow": "",
-              }
-            }
+          <button
+            className="btn btn-primary"
+            disabled={false}
+            type="submit"
           >
-            3
-          </div>
-        </div>
-        <div
-          className="col-2 align-self-center"
-        >
-          <div
-            className="fourTable"
-            style={
-              Object {
-                "backgroundColor": "#2bff6b",
-                "boxShadow": "",
-              }
-            }
-          >
-            4
-          </div>
-        </div>
-        <div
-          className="col-2 align-self-center"
-        >
-          <div
-            className="fourTable"
-            style={
-              Object {
-                "backgroundColor": "#2bff6b",
-                "boxShadow": "",
-              }
-            }
-          >
-            5
-          </div>
-        </div>
-        <div
-          className="col-1 align-self-center"
-        >
-          <div
-            className="twoTable"
-            style={
-              Object {
-                "backgroundColor": "#2bff6b",
-                "boxShadow": "",
-              }
-            }
-          >
-            6
-          </div>
-        </div>
-        <div
-          className="col-2 align-self-center"
-        >
-          <div
-            className="sixTable"
-            style={
-              Object {
-                "backgroundColor": "#2bff6b",
-                "boxShadow": "",
-              }
-            }
-          >
-            7
-          </div>
-        </div>
+             Submit 
+          </button>
+        </form>
       </div>
       <div
-        className="row g-1"
+        className="col-sm"
       >
         <div
-          className="col-2"
-        />
-        <div
-          className="col-1"
-        />
-        <div
-          className="col-2 align-self-center"
+          className="grid"
         >
           <div
-            className="fourTable"
-            style={
-              Object {
-                "backgroundColor": "#2bff6b",
-                "boxShadow": "",
-              }
-            }
+            className="container"
           >
-            8
-          </div>
-        </div>
-        <div
-          className="col-2 align-self-center"
-        >
-          <div
-            className="fourTable"
-            style={
-              Object {
-                "backgroundColor": "#2bff6b",
-                "boxShadow": "",
-              }
-            }
-          >
-            9
-          </div>
-        </div>
-        <div
-          className="col-2 align-self-center"
-        >
-          <div
-            className="fourTable"
-            style={
-              Object {
-                "backgroundColor": "#2bff6b",
-                "boxShadow": "",
-              }
-            }
-          >
-            10
-          </div>
-        </div>
-        <div
-          className="col-1"
-        />
-        <div
-          className="col-2"
-        />
-      </div>
-      <div
-        className="row g-1"
-      >
-        <div
-          className="col-2 align-self-center"
-        >
-          <div
-            className="sixTable"
-            style={
-              Object {
-                "backgroundColor": "#2bff6b",
-                "boxShadow": "",
-              }
-            }
-          >
-            11
-          </div>
-        </div>
-        <div
-          className="col-1 align-self-center"
-        >
-          <div
-            className="twoTable"
-            style={
-              Object {
-                "backgroundColor": "#2bff6b",
-                "boxShadow": "",
-              }
-            }
-          >
-            12
-          </div>
-        </div>
-        <div
-          className="col align-self-center"
-        >
-          <div
-            className="fourTable"
-            style={
-              Object {
-                "backgroundColor": "#2bff6b",
-                "boxShadow": "",
-              }
-            }
-          >
-            13
-          </div>
-        </div>
-        <div
-          className="col align-self-center"
-        >
-          <div
-            className="fourTable"
-            style={
-              Object {
-                "backgroundColor": "#2bff6b",
-                "boxShadow": "",
-              }
-            }
-          >
-            14
-          </div>
-        </div>
-        <div
-          className="col align-self-center"
-        >
-          <div
-            className="fourTable"
-            style={
-              Object {
-                "backgroundColor": "#2bff6b",
-                "boxShadow": "",
-              }
-            }
-          >
-            15
-          </div>
-        </div>
-        <div
-          className="col-1 align-self-center"
-        >
-          <div
-            className="twoTable"
-            style={
-              Object {
-                "backgroundColor": "#2bff6b",
-                "boxShadow": "",
-              }
-            }
-          >
-            16
-          </div>
-        </div>
-        <div
-          className="col-2 align-self-center"
-        >
-          <div
-            className="sixTable"
-            style={
-              Object {
-                "backgroundColor": "#2bff6b",
-                "boxShadow": "",
-              }
-            }
-          >
-            17
+            <div
+              className="row g-1"
+            >
+              <div
+                className="col-2 align-self-center"
+              >
+                <div
+                  className="sixTable"
+                  style={
+                    Object {
+                      "backgroundColor": "#2bff6b",
+                      "boxShadow": "",
+                    }
+                  }
+                >
+                  1
+                </div>
+              </div>
+              <div
+                className="col-1 align-self-center"
+              >
+                <div
+                  className="twoTable"
+                  style={
+                    Object {
+                      "backgroundColor": "#2bff6b",
+                      "boxShadow": "",
+                    }
+                  }
+                >
+                  2
+                </div>
+              </div>
+              <div
+                className="col-2 align-self-center"
+              >
+                <div
+                  className="fourTable"
+                  style={
+                    Object {
+                      "backgroundColor": "#2bff6b",
+                      "boxShadow": "",
+                    }
+                  }
+                >
+                  3
+                </div>
+              </div>
+              <div
+                className="col-2 align-self-center"
+              >
+                <div
+                  className="fourTable"
+                  style={
+                    Object {
+                      "backgroundColor": "#2bff6b",
+                      "boxShadow": "",
+                    }
+                  }
+                >
+                  4
+                </div>
+              </div>
+              <div
+                className="col-2 align-self-center"
+              >
+                <div
+                  className="fourTable"
+                  style={
+                    Object {
+                      "backgroundColor": "#2bff6b",
+                      "boxShadow": "",
+                    }
+                  }
+                >
+                  5
+                </div>
+              </div>
+              <div
+                className="col-1 align-self-center"
+              >
+                <div
+                  className="twoTable"
+                  style={
+                    Object {
+                      "backgroundColor": "#2bff6b",
+                      "boxShadow": "",
+                    }
+                  }
+                >
+                  6
+                </div>
+              </div>
+              <div
+                className="col-2 align-self-center"
+              >
+                <div
+                  className="sixTable"
+                  style={
+                    Object {
+                      "backgroundColor": "#2bff6b",
+                      "boxShadow": "",
+                    }
+                  }
+                >
+                  7
+                </div>
+              </div>
+            </div>
+            <div
+              className="row g-1"
+            >
+              <div
+                className="col-2"
+              />
+              <div
+                className="col-1"
+              />
+              <div
+                className="col-2 align-self-center"
+              >
+                <div
+                  className="fourTable"
+                  style={
+                    Object {
+                      "backgroundColor": "#2bff6b",
+                      "boxShadow": "",
+                    }
+                  }
+                >
+                  8
+                </div>
+              </div>
+              <div
+                className="col-2 align-self-center"
+              >
+                <div
+                  className="fourTable"
+                  style={
+                    Object {
+                      "backgroundColor": "#2bff6b",
+                      "boxShadow": "",
+                    }
+                  }
+                >
+                  9
+                </div>
+              </div>
+              <div
+                className="col-2 align-self-center"
+              >
+                <div
+                  className="fourTable"
+                  style={
+                    Object {
+                      "backgroundColor": "#2bff6b",
+                      "boxShadow": "",
+                    }
+                  }
+                >
+                  10
+                </div>
+              </div>
+              <div
+                className="col-1"
+              />
+              <div
+                className="col-2"
+              />
+            </div>
+            <div
+              className="row g-1"
+            >
+              <div
+                className="col-2 align-self-center"
+              >
+                <div
+                  className="sixTable"
+                  style={
+                    Object {
+                      "backgroundColor": "#2bff6b",
+                      "boxShadow": "",
+                    }
+                  }
+                >
+                  11
+                </div>
+              </div>
+              <div
+                className="col-1 align-self-center"
+              >
+                <div
+                  className="twoTable"
+                  style={
+                    Object {
+                      "backgroundColor": "#2bff6b",
+                      "boxShadow": "",
+                    }
+                  }
+                >
+                  12
+                </div>
+              </div>
+              <div
+                className="col align-self-center"
+              >
+                <div
+                  className="fourTable"
+                  style={
+                    Object {
+                      "backgroundColor": "#2bff6b",
+                      "boxShadow": "",
+                    }
+                  }
+                >
+                  13
+                </div>
+              </div>
+              <div
+                className="col align-self-center"
+              >
+                <div
+                  className="fourTable"
+                  style={
+                    Object {
+                      "backgroundColor": "#2bff6b",
+                      "boxShadow": "",
+                    }
+                  }
+                >
+                  14
+                </div>
+              </div>
+              <div
+                className="col align-self-center"
+              >
+                <div
+                  className="fourTable"
+                  style={
+                    Object {
+                      "backgroundColor": "#2bff6b",
+                      "boxShadow": "",
+                    }
+                  }
+                >
+                  15
+                </div>
+              </div>
+              <div
+                className="col-1 align-self-center"
+              >
+                <div
+                  className="twoTable"
+                  style={
+                    Object {
+                      "backgroundColor": "#2bff6b",
+                      "boxShadow": "",
+                    }
+                  }
+                >
+                  16
+                </div>
+              </div>
+              <div
+                className="col-2 align-self-center"
+              >
+                <div
+                  className="sixTable"
+                  style={
+                    Object {
+                      "backgroundColor": "#2bff6b",
+                      "boxShadow": "",
+                    }
+                  }
+                >
+                  17
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

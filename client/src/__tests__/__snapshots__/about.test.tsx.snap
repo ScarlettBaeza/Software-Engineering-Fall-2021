@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`about page renders correctly 1`] = `
+<div
+  className="aboutSection"
+>
+  <h1>
+    About Us
+  </h1>
+  <p>
+    This project was created for COSC 4351 at the University of Houston.
+  </p>
+  <h1>
+    Creators
+  </h1>
+  <h1>
+    Scarlett Baeza, Eric Nguyen, Carlos Rosales
+  </h1>
+</div>
+`;

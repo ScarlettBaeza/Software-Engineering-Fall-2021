@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` home renders correctly 1`] = `
+<div
+  id="loginBox"
+>
+  <div
+    className="left"
+  >
+    <h1
+      className="signup"
+    >
+      Sign up Today
+    </h1>
+    <input
+      className="text"
+      name="username"
+      placeholder="Username"
+    />
+    <input
+      className="text"
+      name="email"
+      placeholder="E-mail"
+    />
+    <input
+      name="password"
+      placeholder="Password"
+      type="password"
+    />
+    <input
+      name="password2"
+      placeholder="Retype password"
+      type="password"
+    />
+    <button
+      className="btn btn-primary"
+      disabled={false}
+      name="signup_submit"
+      type="submit"
+      value="Sign me up"
+    >
+       Sign me up 
+    </button>
+  </div>
+  <div
+    className="or"
+  >
+    OR
+  </div>
+  <div
+    className="right"
+  >
+    <h1
+      className="contGuest"
+    >
+      Continue as Guest
+    </h1>
+    <a
+      className="resMake btn btn-primary"
+      href="resForm"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      Make a Reservation
+    </a>
+  </div>
+</div>
+`;
