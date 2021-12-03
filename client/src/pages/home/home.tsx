@@ -15,7 +15,7 @@ export const Home = () => {
                 <input className="text" name="email" placeholder="E-mail" />
                 <input type="password" name="password" placeholder="Password" />
                 <input type="password" name="password2" placeholder="Retype password" />
-                <Button type="submit" name="signup_submit" value="Sign me up"> Sign me up </Button>
+                <Button type="submit" name="signup_submit" value="Sign me up" href="registeredReserve"> Sign me up </Button>
             </div> 
 
             <div className="or">OR</div>

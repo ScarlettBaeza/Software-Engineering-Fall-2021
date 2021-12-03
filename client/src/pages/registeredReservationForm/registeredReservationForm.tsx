@@ -11,9 +11,9 @@ import { HighTrafficModal } from '../../components/highTrafficModal/highTrafficM
 import { checkBusyDay, checkDayofWeek, checkHolidays } from '../../assets/scripts/highTrafficChecker'
 import "react-datetime/css/react-datetime.css";
 import moment from 'moment';
-import './reservationForm.css';
+import './registeredReservationForm.css';
 
-export const ReservationForm = () => {
+export const RegisteredReservationForm = () => {
     const [name,setName] = useState<string>();
     const [email,setEmail] = useState<string>();
     const [phoneNumber,setPhoneNumber] = useState<string>();
@@ -163,7 +163,7 @@ export const ReservationForm = () => {
             }
             else
             {
-                setShowRegisterModal(true);
+                handleSendDatabase();
             }
         }
 
@@ -174,7 +174,6 @@ export const ReservationForm = () => {
         setSelectedTable(optionsList.find((x) => x.tableNumber == tableNum));
     };
 
-    
     const handleSendDatabase = () => {
         var tables: Table[] = []
         //checks if tables are to be combined or not.
@@ -186,7 +185,7 @@ export const ReservationForm = () => {
         {
             if(selectedTable) tables.push(selectedTable);
         }
-        const testReservation = new Reservation(dateTime!, name!, phoneNumber!, email!, guestsNumber!, tables);
+        const testReservation = new Reservation(dateTime!, name!, phoneNumber!, email!, guestsNumber!, tables, parseInt(window.location.hash.substr(1)));
         axios.post("http://localhost:8080/reservation", testReservation)
         .then(() => window.location.reload());
     }
@@ -240,8 +239,7 @@ export const ReservationForm = () => {
                         <TableGrid freeTable={freeTables}/>
                     </div>
                 </div>
-                <RegisterModal show = {showRegisterModal} handleClose = {() => {setShowRegisterModal(false)}} handleSubmit = {handleSendDatabase}></RegisterModal>
-                <HighTrafficModal show = {showHighTrafficModal} handleClose = {() => {setShowHighTrafficModal(false)}} handleNext = {() => {setShowHighTrafficModal(false); setShowRegisterModal(true);}}></HighTrafficModal>
+                <HighTrafficModal show = {showHighTrafficModal} handleClose = {() => {setShowHighTrafficModal(false)}} handleNext = {handleSendDatabase}></HighTrafficModal>
             </div>
         </div>
     );

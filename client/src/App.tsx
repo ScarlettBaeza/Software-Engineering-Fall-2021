@@ -7,16 +7,18 @@ import { ReservationForm } from './pages/reservationForm/reservationForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { About } from './pages/about/about';
+import { RegisteredReservationForm } from './pages/registeredReservationForm/registeredReservationForm';
 
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <NavigationBar />
+        <NavigationBar loginUsername="Nobody"/>
         <Routes>
           <Route path = "/" element ={<Redirector/>} />
           <Route path = "/home" element ={<Home/>}/>
+          <Route path = "/registeredReserve" element = {<RegisteredReservationForm/>}/>
           <Route path = "/resForm" element = {<ReservationForm/>}/>
           <Route path = "/about" element = {<About/>}/>
         </Routes>
